@@ -1,0 +1,25 @@
+{
+  "name": "kygm_web",
+  "version": "1.0.0",
+  "description": "web based kygm services app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kygm/WebApp.git"
+  },
+  "author": "KYGM",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kygm/WebApp/issues"
+  },
+  "homepage": "https://github.com/kygm/WebApp#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "handlebars": "^4.7.6",
+    "nodemon": "^2.0.7"
+  }
+}

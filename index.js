@@ -27,6 +27,26 @@ app.get('/about', (req, res) => {
   res.render('about');
 });
 
+//addClient page
+app.get('/clients/addClient', (req, res) => {
+  res.render('./clients/addClient');
+});
+
+//viewClient page
+app.get('/clients/viewClient', (req, res) => {
+  res.render('./clients/viewClient');
+});
+
+//addTransact page
+app.get('/clients/addTransact', (req, res) => {
+  res.render('./clients/addTransact');
+});
+
+//viewTransact page
+app.get('/clients/viewTransact', (req, res) => {
+  res.render('./clients/viewTransact');
+});
+
 
 
 //port declaration

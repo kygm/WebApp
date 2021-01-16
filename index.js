@@ -12,14 +12,22 @@ app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//routes
-app.get('/', (req, res) =>{
-  const theTitle = 'Title';
-  res.render('index', 
-  {
-    title: theTitle
-  });
+//ROUTES
+//index page
+app.get('/', (req, res) => {
+  const theTitle = 'Welcome Back!';
+  res.render('index',
+    {
+      title: theTitle
+    });
 });
+
+//about page
+app.get('/about', (req, res) => {
+  res.render('about');
+});
+
+
 
 //port declaration
 const PORT = 1500;

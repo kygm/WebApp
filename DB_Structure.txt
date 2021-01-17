@@ -1,0 +1,24 @@
+CLIENT
+  c_id [KEY PRIMARY]
+  c_fname
+  c_lname
+  c_address
+  c_state
+  c_city
+  c_descript
+  c_dob
+  c_timestamp
+
+TRANSACTION
+  t_id [KEY PRIMARY]
+  t_date
+  t_time_hrs
+  t_expenses
+  t_charge
+  c_id [KEY FOREIGN]
+
+DOCUMENT
+  d_id [KEY PRIMARY]
+  d_file_name
+  d_timestamp
+  c_id [KEY FOREIGN]

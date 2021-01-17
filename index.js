@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+//port declaration
+const PORT = 1500;
 
 //handlebars
 app.engine('handlebars', exphbs());
@@ -49,8 +51,7 @@ app.get('/clients/viewTransact', (req, res) => {
 
 
 
-//port declaration
-const PORT = 1500;
+//port selection
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });

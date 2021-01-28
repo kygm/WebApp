@@ -1,2 +1,37 @@
-<p>Page under construction...</p>
-<p>Add transaction page</p>
+<table>
+    <tr><th>New Transaction Form</th></tr>
+    <tr>
+        <form name="addTransaction"action="" method="post"class=""></form>
+        <td><div class="form-group"><label for="title"class="mx-sm-1">Title</label></td>
+        <td><input type='text' class=''name='title'></div></td>
+        <td><div class="form-group"><label for="date"class="mx-sm-1">Date</label></td>
+        <td><input type='date' class=''name='date'></div></td>
+        <td><div class="form-group"><label for="clientId"class="mx-sm-1">Client ID</label></td>
+        <td><input type='text' class=''name='clientId'></div></td>
+        <td><div class="form-group"><label for="type"class="mx-sm-1">Type</label></td>
+        <td><input type='text' class=''name='type'></div></td>
+        </tr>
+        <tr>
+        <td><div class="form-group"><label for="risk"class="mx-sm-1">Risk</label></td>
+        <td><input type='text' class=''name='risk'></div></td>
+        <td><div class="form-group"><label for="cost"class="mx-sm-1">Cost</label></td>
+        <td><input type='number' class=''name='cost'></div></td>
+        <td><div class="form-group"><label for="price"class="mx-sm-1">Price</label></td>
+        <td><input type='number' class=''name='price'></div></td>
+        <td><div class="form-group"><label for="revenue"class="mx-sm-1">Revenue</label></td>
+        <td><input type='text' class=''name='revenue'></div></td>{{!--autocalculate--}}
+        <td><div class="form-group"><label for="duration"class="mx-sm-1">Duration</label></td>
+        <td><input type='text' class=''name='duration'></div></td>
+    </tr>
+</table>
+{{!-- @required this.risk,
+    @required this.title,
+    @required this.description,
+    @required this.date,
+    @required this.type,
+    @required this.clientId,
+    @required this.serviceId,
+    @required this.cost,
+    @required this.price,
+    @required this.revenue,
+    this.duration, --}}

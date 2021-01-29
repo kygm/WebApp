@@ -1,2 +1,57 @@
 <p>Page under construction...</p>
 <p>View client page</p>
+<table>
+    <tr>
+    <td class=''>fname</td>{{!make as input fields set to readonly, onclick of edit, change}}
+        <td class=''>mname</td>
+        <td class=''>lname</td>
+        <td class=''>alias</td>
+        <td class=''>age</td>
+        <td class=''>dob</td>
+        <td class=''>phone</td>
+        <td class=''>ssid</td>
+        <td class=''>address</td>
+        <td class=''>city</td>
+        <td class=''>state</td>
+        <td class=''>zip</td>
+        <td class=''>work</td>
+        <td class=''>time</td>
+        <td class=''>Description</td>
+        <td colspan="3">Options</td>
+    </tr>
+{{#each clients}}
+    <div class="card card-bodymb-2"> </div>
+    <tr>
+        <td class=''>fname</td>{{!make as input fields set to readonly, onclick of edit, change}}
+        <td class=''>mname</td>
+        <td class=''>lname</td>
+        <td class=''>alias</td>
+        <td class=''>age</td>
+        <td class=''>dob</td>
+        <td class=''>phone</td>
+        <td class=''>ssid</td>
+        <td class=''>address</td>
+        <td class=''>city</td>
+        <td class=''>state</td>
+        <td class=''>zip</td>
+        <td class=''>work</td>
+        <td class=''>time</td>
+        <td class=''>Description</td>
+        
+        <td class=''><form name="addTransaction"action="/clients/viewClient" method="post">
+            <input type="button" class="btn btn-primary"set client id here>Add Transactions</a></form>
+        </td>
+        <td class=""hidden><input type="button"class="btn btn-success"set client id here 
+            onclick=change readonlys to edit, hide this button, show submit button value="Edit"></td>
+        <td class=""hidden><form name="editClient"action=""method="post">
+            <input type="button"set client id here class=""value="Submit"onclick=set to readonly, hide this, show edit>
+        </form></td>
+        <td class=""><form name="delete"action=""method="post">
+            <input type="button"set client id here class=""value="Delete">
+        </form></td>
+    </tr>
+
+{{else}}
+    <p>No clients found in database</p>
+{{/each}}
+</table>

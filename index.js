@@ -49,6 +49,20 @@ app.get('/clients/viewTransact', (req, res) => {
   res.render('./clients/viewTransact');
 });
 
+//working with posted information from 
+//add clients page
+app.post('/clients/addClient', (req, res) => {
+  const newClient = 
+  {
+    //in here goes the information
+    //recieved from the addclients page.
+  }
+  //once client is added, redirect to 
+  //view newly created client
+  res.redirect('./clients/viewClient');
+});
+
+
 
 
 //port selection

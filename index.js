@@ -17,6 +17,12 @@ db.on('error', console.error.bind(console, 'connection error: '));
 db.once('open', () => {
   console.log('MongoDB Connected');
 });
+
+//load clients model
+require('./models/Clients');
+//must load transact and document models
+//afterwards
+
 //port declaration
 const PORT = 1500;
 
@@ -70,15 +76,15 @@ app.post('/clients/addClient', (req, res) => {
   {
     //in here goes the information
     //recieved from the addclients page.
-    /*
-    fname = req.body.fname,
-    lname = req.body.lname,
-    city = req.body.city,
-    state = req.body.state,
-    address = req.body.state,
-    phoneNumber = req.body.phoneNumber,
-    descript = req.body.descript
-    */
+    
+    fname: req.body.fname,
+    lname: req.body.lname,
+    city: req.body.city,
+    state: req.body.state,
+    address: req.body.state,
+    phoneNumber: req.body.phoneNumber,
+    descript: req.body.descript
+    
   }
   new Client(newClient)
     .save()

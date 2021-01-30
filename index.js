@@ -3,6 +3,20 @@ const express = require('express');
 const app = express();
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+
+//mongodb database setup
+mongoose.connect('mongodb://localhost/KYGM_Services',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error: '));
+db.once('open', () => {
+  console.log('MongoDB Connected');
+});
 //port declaration
 const PORT = 1500;
 
@@ -52,14 +66,26 @@ app.get('/clients/viewTransact', (req, res) => {
 //working with posted information from 
 //add clients page
 app.post('/clients/addClient', (req, res) => {
-  const newClient = 
+  const newClient =
   {
     //in here goes the information
     //recieved from the addclients page.
+    /*
+    fname = req.body.fname,
+    lname = req.body.lname,
+    city = req.body.city,
+    state = req.body.state,
+    address = req.body.state,
+    phoneNumber = req.body.phoneNumber,
+    descript = req.body.descript
+    */
   }
-  //once client is added, redirect to 
-  //view newly created client
-  res.redirect('./clients/viewClient');
+  new Client(newClient)
+    .save()
+    .then(client => {
+      res.redirect('./clients/viewClients');
+    })
+  console.log(req.body);
 });
 
 

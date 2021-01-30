@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 //creating schema for clients
-const ClientSchema = new Schema(
+const Clients = new Schema(
   {
     fname:
     {
@@ -45,4 +45,4 @@ const ClientSchema = new Schema(
     }
   });
   //setting model
-  mongoose.model('KYGM_Services', ClientSchema)
+  mongoose.model('Clients', Clients)

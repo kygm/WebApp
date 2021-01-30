@@ -20,6 +20,8 @@ db.once('open', () => {
 
 //load clients model
 require('./models/Clients');
+const Client = mongoose.model('Clients');
+
 //must load transact and document models
 //afterwards
 
@@ -58,6 +60,17 @@ app.get('/clients/addClient', (req, res) => {
 app.get('/clients/viewClient', (req, res) => {
   res.render('./clients/viewClient');
 });
+//viewClient table
+app.get('/clients/addClient', (req, res) => {
+  Client.find({})
+  .sort({date: 'desc'})
+  .then(clients =>{
+    res.render('clients/viewClients',
+    {
+      clients: clients
+    })
+  })
+});
 
 //addTransact page
 app.get('/clients/addTransact', (req, res) => {
@@ -71,12 +84,12 @@ app.get('/clients/viewTransact', (req, res) => {
 
 //working with posted information from 
 //add clients page
-app.post('/clients/addClient', (req, res) => {
+app.post('/clients', (req, res) => {
   const newClient =
   {
     //in here goes the information
     //recieved from the addclients page.
-    
+
     fname: req.body.fname,
     lname: req.body.lname,
     city: req.body.city,
@@ -84,12 +97,12 @@ app.post('/clients/addClient', (req, res) => {
     address: req.body.state,
     phoneNumber: req.body.phoneNumber,
     descript: req.body.descript
-    
+
   }
   new Client(newClient)
     .save()
     .then(client => {
-      res.redirect('./clients/viewClients');
+      res.redirect('./clients/viewClient');
     })
   console.log(req.body);
 });

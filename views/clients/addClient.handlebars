@@ -9,13 +9,24 @@
 
         <fieldset>
           <div class="form-goup">
+            <label for="fname">First Name</label>
             <input class="form-control input-lg" placeholder="First Name" name="fname" type="text">
           </div>
           <div class="form-group">
+            <label for="lname">Last Name</label>
             <input class="form-control input-lg" placeholder="Last Name" name="fname" type="text">
           </div>
           <div class="form-group">
+            <label for="descript">Description</label>
+            <textarea class="form-control" id="descript" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="city">City</label>
             <input class="form-control input-lg" placeholder="City" name="city" type="text">
+          </div>
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input class="form-control input-lg" placeholder="Address" name="address" value="" type="text">
           </div>
           <label for="state" class="col-auto">State</label>
           <select class="form-control col-auto" name="state">
@@ -71,12 +82,11 @@
             <option value="WI">Wisconsin</option>
             <option value="WY">Wyoming</option>
           </select>
-          <div class="form-group">
-            <input class="form-control input-lg" placeholder="Address" name="address" value="" type="text">
-          </div>
+          <br />
 
           <input class="btn btn-lg btn-primary btn-block" value="Add New Client" type="submit">
         </fieldset>
+
       </div>
     </div>
   </div>

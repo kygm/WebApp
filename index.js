@@ -56,21 +56,29 @@ app.get('/clients/addClient', (req, res) => {
   res.render('./clients/addClient');
 });
 
-//viewClient page
+//viewClient pages
+//get route
 app.get('/clients/viewClient', (req, res) => {
-  res.render('./clients/viewClient');
+  Client.find({}).lean()
+    .sort({ date: 'desc' })
+    .then(clients => {
+      res.render('./clients/viewClient',
+        {
+          clients: clients
+        });
+    });
 });
-//viewClient table
-app.get('/clients/addClient', (req, res) => {
-  Client.find({})
-  .sort({date: 'desc'})
-  .then(clients =>{
-    res.render('clients/viewClients',
-    {
-      clients: clients
-    })
+//post route
+app.post('/clients/viewClient', (req, res) => {
+  Client.find({
+    phoneNumber: req.body.id
   })
+    .then(
+      res.redirect('./clients/addTransact')
+    );
+  console.log(req.body);
 });
+
 
 //addTransact page
 app.get('/clients/addTransact', (req, res) => {
@@ -81,6 +89,7 @@ app.get('/clients/addTransact', (req, res) => {
 app.get('/clients/viewTransact', (req, res) => {
   res.render('./clients/viewTransact');
 });
+
 
 //working with posted information from 
 //add clients page
@@ -113,4 +122,6 @@ app.post('/clients', (req, res) => {
 //port selection
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
+  // console.log(Client.find({})
+  // .sort({date: 'desc'}))
 });

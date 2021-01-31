@@ -1,2 +1,40 @@
-<p>Page under construction...</p>
-<p>Add transaction page</p>
+
+    <div class='card card-body'>
+        <h3 class="text-center">New Transaction Form</h3>
+        <form classname="addTransaction"action="" method="post"=""></form>
+        <div class="form row col align-items-center">
+            <label for="title"class="col-sm-1">Title</label>
+            <input type='text' class='form-control-sm col-sm-3'name='title'required>
+            <label for="date"class="col-sm-1">Date</label>
+            <input type='date' class='form-control-sm col-sm-2'name='date'required>
+            <label for="type"class="col-sm-1">Type</label>
+            <input type='text' class='form-control-sm col-sm-2'name='type'required>
+            <label for="risk"class="col-sm-1">Risk</label>
+            <select class='form-control-sm col-sm-1'name='risk'required>
+                <option value='low'>Low</option>
+                <option value='medium'>Medium</option>
+                <option value='high'>High</option>
+            </select>
+            
+        </div>
+        <div class="form row col my-2">
+            <label for="durationD"class="col-sm-1">Time</label>
+            <div class="col-sm-5">
+                <input type='number' class='form-control-sm col-sm-3'name='durationD'>DD
+                <input type='number' class='form-control-sm col-sm-3 mx-1'name='durationH'required>HH
+                <input type='number' class='form-control-sm col-sm-3 mx-1'name='durationM'required>MM
+            </div>
+            <label for="cost"class="col-sm-1">Cost</label>
+            <input type='number' class='form-control-sm col-sm-1'name='cost'required>
+            <label for="price"class="col-sm-1">Charge</label>
+            <input type='number' class='form-control-sm col-sm-1'name='price'required>
+            <label for="revenue"class="col-sm-1">Profit</label>
+            <input type='text' class='form-control-sm col-sm-1'name='revenue'required>{{!--autocalculate--}}
+        </div>
+        <div class="form row col align-items-center">
+            <label for="transDescription"class="col-sm-2">Description</label>
+            <textarea class="form-control-sm col-sm-10"name="transDescription"></textarea>
+        </div>
+    </div>
+    
+</table>

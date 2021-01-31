@@ -1,2 +1,26 @@
-<p>Page under construction...</p>
-<p>View client page</p>
+{{#each clients}}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col">Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{fname}}</td>
+      <td>{{lname}}</td>
+      <td>{{phoneNumber}}</td>
+      <td>
+        <form method="post" action="./clients/addTransact.handlebars">
+          <button name='id' type='button' value="{{phoneNumber}}" class='btn btn-secondary'>Add Transaction</btn>
+        </form>
+      </td>
+    </tr>
+  </tbody>
+</table>
+{{else}}
+<h1>No Clients in Database</h1>
+{{/each}}

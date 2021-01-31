@@ -3,6 +3,30 @@ const express = require('express');
 const app = express();
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+
+//mongodb database setup
+mongoose.connect('mongodb://localhost/KYGM_Services',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error: '));
+db.once('open', () => {
+  console.log('MongoDB Connected');
+});
+
+//load clients model
+require('./models/Clients');
+const Client = mongoose.model('Clients');
+
+//must load transact and document models
+//afterwards
+
+//port declaration
+const PORT = 1500;
 
 //handlebars
 app.engine('handlebars', exphbs());
@@ -32,10 +56,29 @@ app.get('/clients/addClient', (req, res) => {
   res.render('./clients/addClient');
 });
 
-//viewClient page
+//viewClient pages
+//get route
 app.get('/clients/viewClient', (req, res) => {
-  res.render('./clients/viewClient');
+  Client.find({}).lean()
+    .sort({ date: 'desc' })
+    .then(clients => {
+      res.render('./clients/viewClient',
+        {
+          clients: clients
+        });
+    });
 });
+//post route
+app.post('/clients/viewClient', (req, res) => {
+  Client.find({
+    phoneNumber: req.body.id
+  })
+    .then(
+      res.redirect('./clients/addTransact')
+    );
+  console.log(req.body);
+});
+
 
 //addTransact page
 app.get('/clients/addTransact', (req, res) => {
@@ -48,9 +91,37 @@ app.get('/clients/viewTransact', (req, res) => {
 });
 
 
+//working with posted information from 
+//add clients page
+app.post('/clients', (req, res) => {
+  const newClient =
+  {
+    //in here goes the information
+    //recieved from the addclients page.
 
-//port declaration
-const PORT = 1500;
+    fname: req.body.fname,
+    lname: req.body.lname,
+    city: req.body.city,
+    state: req.body.state,
+    address: req.body.state,
+    phoneNumber: req.body.phoneNumber,
+    descript: req.body.descript
+
+  }
+  new Client(newClient)
+    .save()
+    .then(client => {
+      res.redirect('./clients/viewClient');
+    })
+  console.log(req.body);
+});
+
+
+
+
+//port selection
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
+  // console.log(Client.find({})
+  // .sort({date: 'desc'}))
 });

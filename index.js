@@ -51,10 +51,6 @@ app.get('/about', (req, res) => {
   res.render('about');
 });
 
-//addClient page
-app.get('/clients/addClient', (req, res) => {
-  res.render('./clients/addClient');
-});
 
 //viewClient pages
 //get route
@@ -68,15 +64,16 @@ app.get('/clients/viewClient', (req, res) => {
         });
     });
 });
-//post route
-app.post('/clients/viewClient', (req, res) => {
+//post route, phone number to search client
+app.post('/clients/addTransact/:id', (req, res) => {
+
   Client.find({
-    phoneNumber: req.body.id
+    phoneNumber: req.params.id
   })
     .then(
-      res.redirect('./clients/addTransact')
+      //res.redirect('./clients/viewTransact')
     );
-  console.log(req.body);
+  console.log(req.params.id);
 });
 
 
@@ -90,7 +87,7 @@ app.get('/clients/viewTransact', (req, res) => {
   res.render('./clients/viewTransact');
 });
 
-
+//addClient page
 //working with posted information from 
 //add clients page
 app.post('/clients', (req, res) => {

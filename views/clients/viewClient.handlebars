@@ -14,8 +14,8 @@
       <td>{{lname}}</td>
       <td>{{phoneNumber}}</td>
       <td>
-        <form method="post" action="./clients/addTransact.handlebars">
-          <button name='id' type='button' value="{{phoneNumber}}" class='btn btn-secondary'>Add Transaction</btn>
+        <form method="post" action="/clients/addTransact/{{phoneNumber}}">
+          <input name='id' type='submit' value="Add Transaction" class='btn btn-secondary' />
         </form>
       </td>
     </tr>

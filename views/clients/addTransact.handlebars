@@ -1,40 +1,75 @@
-
-    <div class='card card-body'>
-        <h3 class="text-center">New Transaction Form</h3>
-        <form classname="addTransaction"action="" method="post"=""></form>
-        <div class="form row col align-items-center">
-            <label for="title"class="col-sm-1">Title</label>
-            <input type='text' class='form-control-sm col-sm-3'name='title'required>
-            <label for="date"class="col-sm-1">Date</label>
-            <input type='date' class='form-control-sm col-sm-2'name='date'required>
-            <label for="type"class="col-sm-1">Type</label>
-            <input type='text' class='form-control-sm col-sm-2'name='type'required>
-            <label for="risk"class="col-sm-1">Risk</label>
-            <select class='form-control-sm col-sm-1'name='risk'required>
-                <option value='low'>Low</option>
-                <option value='medium'>Medium</option>
-                <option value='high'>High</option>
-            </select>
-            
-        </div>
-        <div class="form row col my-2">
-            <label for="durationD"class="col-sm-1">Time</label>
-            <div class="col-sm-5">
-                <input type='number' class='form-control-sm col-sm-3'name='durationD'>DD
-                <input type='number' class='form-control-sm col-sm-3 mx-1'name='durationH'required>HH
-                <input type='number' class='form-control-sm col-sm-3 mx-1'name='durationM'required>MM
+<div class="container-fluid bg-light py-3">
+    <form id="contact-form" method="post" action="completeTransact.handlebars" role="form">
+        <div class="messages"></div>
+        <div class="controls">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="form_name">First Name</label>
+                        <input id="lname" type="text" readonly='true' name="fname" class="form-control"
+                            placeholder="{{fname}}">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="form_email">Last Name</label>
+                        <input id="fname" type="text" readonly='true' name="lname" class="form-control"
+                            placeholder="{{lname}}">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="form_phone">Phone</label>
+                        <input id="form_phone" type="tel" name="phoneNumber" readonly='true' class="form-control"
+                            placeholder={{phoneNumber}}>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
             </div>
-            <label for="cost"class="col-sm-1">Cost</label>
-            <input type='number' class='form-control-sm col-sm-1'name='cost'required>
-            <label for="price"class="col-sm-1">Charge</label>
-            <input type='number' class='form-control-sm col-sm-1'name='price'required>
-            <label for="revenue"class="col-sm-1">Profit</label>
-            <input type='text' class='form-control-sm col-sm-1'name='revenue'required>{{!--autocalculate--}}
         </div>
-        <div class="form row col align-items-center">
-            <label for="transDescription"class="col-sm-2">Description</label>
-            <textarea class="form-control-sm col-sm-10"name="transDescription"></textarea>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="form_name">Cost</label>
+                    <input id="cost" type="text" name="cost" class="form-control" required="required"
+                        data-error="Enter Cost" placeholder="Expenses">
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="form_email">Price</label>
+                    <input id="price" type="text" name="price" class="form-control" required="required"
+                        data-error="Enter Price" placeholder="Charge">
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="form_phone">Time</label>
+                    <input id="form_phone" type="text" name="time" required="required" class="form-control"
+                        data-error="Enter time in hours" placeholder="3 hrs">
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
         </div>
-    </div>
-    
-</table>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="form_message">Description</label>
+                    <textarea id="form_message" name="message" class="form-control" placeholder="What service was done?"
+                        rows="4" required="required" data-error="send a message."></textarea>
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="col-md-12">
+            <input type="submit" class="btn btn-warning btn-send" value="Complete Transaction">
+        </div>
+
+    </form>
+</div>

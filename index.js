@@ -71,7 +71,7 @@ app.post('/clients/addTransact/:id', (req, res) => {
     phoneNumber: req.params.id
   })
     .then(
-      //res.redirect('./clients/viewTransact')
+      res.redirect('/clients/addTransact')
     );
   console.log(req.params.id);
 });
@@ -88,6 +88,9 @@ app.get('/clients/viewTransact', (req, res) => {
 });
 
 //addClient page
+app.get('/clients/addClient', (req, res) => {
+  res.render('./clients/addClient');
+});
 //working with posted information from 
 //add clients page
 app.post('/clients', (req, res) => {
@@ -113,12 +116,23 @@ app.post('/clients', (req, res) => {
   console.log(req.body);
 });
 
+//completeTransact page
+app.post('/clients/completeTransact', (req, res) => {
+  res.render('./completeTransact');
+});
+app.get('/clients/completeTransact', (req, res) => {
+  res.render('./completeTransact');
+});
 
+
+
+
+//********************CONFIG*SECTION***********************//
 
 
 //port selection
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
   // console.log(Client.find({})
-  // .sort({date: 'desc'}))
+  // .sort({date: 'desc'}));
 });

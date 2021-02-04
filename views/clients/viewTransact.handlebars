@@ -1,3 +1,30 @@
 <p>Page under construction...</p>
 <p>View transact page</p>
 <p>DB Completion requred to create this page...</p>
+{{#each Transactions}}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col"><center>Options</center></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><input type="text"value={{fname}} class="form-control"name="fname"readonly></td>
+      <td><input type="text"value={{lname}} class="form-control"name="lname"readonly></td>
+      <td><input type="text"value={{lname}} class="form-control"name="phoneNumber"readonly></td>
+      <td>
+        <form method="post" action="/clients/addTransact/{{phoneNumber}}">
+          <input name='id' type='submit' value="Add Transaction" class='btn btn-secondary' />
+        </form>
+      </td>
+      
+    </tr>
+  </tbody>
+</table>
+{{else}}
+<h1>No Transactions in Database</h1>
+{{/each}}

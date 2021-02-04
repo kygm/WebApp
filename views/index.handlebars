@@ -1,6 +1,4 @@
-<style>
 
-</style>
 <div class="jumbotron text-center">
   <h1 class="display-3">
     {{title}}
@@ -8,17 +6,53 @@
   </h1>
 </div>
 <div name="main">
-  <div name="View Clients">
-    <a class="btn btn-secondary btn-block"href="/clients/viewClient">View Clients</a>
+<table>
+    <tr>
+      <td style="width:50%;height:20%">
+        <div name="View Clients"class="card">
+          <a href="/clients/viewClient">
+            <img class="card-img mx-auto d-block" src="https://www.ecseq.com/img/about-company.png"style="height:250px">
+            <div class="card-img-overlay card-body">
+              <p class="btn btn-secondary btn-block">View Clients</p>
+            </div>
+          </a>
+        </div>
+      </td>
+      <td style="width:50%;height:20%">
+        <div name="Add Clients"class="card">
+          <a href="/clients/addClient">
+            <img class="card-img mx-auto d-block" src="https://www.shareicon.net/data/512x512/2016/06/30/788859_add_512x512.png"
+            style="width:70%;height:250px">
+            <div class="card-img-overlay">
+              <p class="btn btn-secondary btn-block">Add Clients</p>
+            </div>
+          </a>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:50%;height:20%">
+        <div name="View Transactions"class="card">
+          <a href="/clients/viewTransact">
+            <img class="card-img mx-auto d-block" src="https://png.vector.me/files/images/1/6/163905/stack_of_bills_money_clip_art.jpg"
+            style="width:70%;height:250px">
+            <div class="card-img-overlay card-body">
+              <p class="btn btn-secondary btn-block">View Transactions</p>
+            </div>
+          </a>
+        </div>
+      </td>
+      <td style="width:50%;height:20%">
+        <div name="Add Transactions"class="card"> 
+          <a href="/clients/viewClient">
+            <img class="card-img mx-auto d-block" src="https://cdn2.iconfinder.com/data/icons/flat-money/114/money-add-512.png"
+            style="width:80%;height:250px">
+            <div class="card-img-overlay">
+              <p class="btn btn-secondary btn-block">Add Transactions</p>
+            </div>
+          </a>
+        </div>
+      </td>
+    </tr>
   </div>
-  <div name="Add Clients">
-    <a class="btn btn-secondary btn-block"href="/clients/addClient">Add Clients</a>
-  </div>
-  <div name="View Transactions">
-    <a class="btn btn-secondary btn-block"href="/clients/viewTransact">View Transactions</a>
-  </div>
-  <div name="Add Transactions">
-    <a class="btn btn-secondary btn-block"href="/clients/viewClient">Add Transactions</a>
-  </div>
-
-</div>
+</table>

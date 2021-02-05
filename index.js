@@ -108,6 +108,7 @@ app.post('/clients', (req, res) => {
     descript: req.body.descript
 
   }
+
   new Client(newClient)
     .save()
     .then(client => {

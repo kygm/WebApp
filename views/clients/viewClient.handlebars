@@ -17,15 +17,10 @@
     <tr>
       <td><input type="text"value={{fname}} class="form-control"name="fname"readonly></td>
       <td><input type="text"value={{lname}} class="form-control"name="lname"readonly></td>
-      <td><input type="text"value={{lname}} class="form-control"name="phoneNumber"readonly></td>
+      <td><input type="text"value={{phoneNumber}} class="form-control"name="phoneNumber"readonly></td>
       <td>
         <form method="post" action="/clients/addTransact/{{phoneNumber}}">
           <input name='id' type='submit' value="Add Transaction" class='btn btn-secondary' />
-        </form>
-      </td>
-      <td>
-        <form method="post" action="">
-          <input name='id' type='submit' value="Delete Client" class='btn btn-danger' />
         </form>
       </td>
       

@@ -69,22 +69,17 @@ app.get('/clients/viewClient', (req, res) => {
     });
 });
 //post route, phone number to search client
-app.post('/clients/addTransact/:id', (req, res) => {
+app.get('/clients/addTransact/:id/:fname/:lname', (req, res) => {
+  console.log(req.params);
+  res.render('./clients/addTransact',
+    {
+      fname: req.params.fname,
+      lname: req.params.lname,
+      phoneNumber: req.params.id
+    });
+    
 
-  Client.findOne({
-    phoneNumber: req.params.id,
-  })
-    .then(clients =>
-      {
-        res.render('./clients/addTransact',
-        {
-          fname: clients.fname,
-          lname: clients.lname,
-          phoneNumber: clients.phoneNumber
-        });
-        console.log(clients);
-      });
-  console.log(req.params.id);
+  //console.log(req.params.id);
 });
 
 //addTransact page
@@ -130,7 +125,8 @@ app.post('/clients', (req, res) => {
 //completeTransact page
 app.post('/clients/completeTransact', (req, res) => {
 
-  const newTransact = 
+
+  const newTransact =
   {
     fname: req.body.fname,
     lname: req.body.lname,
@@ -142,9 +138,8 @@ app.post('/clients/completeTransact', (req, res) => {
   }
 
   new Transaction(newTransact)
-  .save()
-  .then(transaction =>
-    {
+    .save()
+    .then(transaction => {
       res.redirect('/clients/viewTransact')
     })
   console.log(req.body);

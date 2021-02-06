@@ -20,7 +20,7 @@
       <td><input type="text"value={{lname}} class="form-control"name="lname"readonly></td>
       <td><input type="text"value={{phoneNumber}} class="form-control"name="phoneNumber"readonly></td>
       <td>
-        <form method="post" action="/clients/addTransact/{{phoneNumber}}">
+        <form method="get" action="/clients/addTransact/{{phoneNumber}}/{{fname}}/{{lname}}">
           <input name='id' type='submit' value="Add Transaction" class='btn btn-secondary' />
         </form>
       </td>

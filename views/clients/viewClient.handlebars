@@ -1,11 +1,12 @@
+
+<p>Search Client Database</p>
+<form action="searchClient"><input type="text"id="searchbar"placeholder="Search by first or last name"
+  class="form-control"onkeyup="search()" ></form>
+
 {{#each clients}}
+
 <table class="table">
   <thead>
-    <tr>
-      <th scope="col">Search Client Database</th>
-      <th scope="col"colspan="4"><input type="text"id="searchbar"placeholder="Search by first or last name"
-        class="form-control"onkeyup="search()" ></th>
-    </tr>
     <tr>
       <th scope="col">First Name</th>
       <th scope="col">Last Name</th>
@@ -31,6 +32,13 @@
 <h1>No Clients in Database</h1>
 {{/each}}
 <script>
+  /*
+
+  KENNY PLEASE GET THIS TO WORK 
+  WITH SEARCH BAR OUT OF MAIN TABLE
+  also make the f(x) exec with a btn,
+  remove onkeyup
+
   function search(){
     var input=document.getElementById('searchbar').value.toLowerCase();
     for(int i=0;i<clients:i++){
@@ -39,4 +47,5 @@
       }
     }
   }
+  */
 </script>

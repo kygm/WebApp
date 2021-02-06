@@ -28,13 +28,13 @@ const Transactions = new Schema(
     //what I spent
     transactCost:
     {
-      type: Double,
+      type: Number,
       required: false
     },
     //what I charged
     transactPrice:
     {
-      type: Double,
+      type: Number,
       required: true
     },
     transactTime:
@@ -48,5 +48,5 @@ const Transactions = new Schema(
       default: Date.now
     }
   });
-  //setting model
-  mongoose.model('Transactions', Transactions)
+//setting model
+mongoose.model('Transactions', Transactions)

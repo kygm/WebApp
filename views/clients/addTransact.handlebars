@@ -1,29 +1,33 @@
+
+
 <div class="container-fluid bg-light py-3">
-    <form id="contact-form" method="post" action="completeTransact.handlebars" role="form">
-        <div class="messages"></div>
+    <form method="post" action="completeTransact" role="form">
+        {{#each clients}}
+        {{/each}}
+        <div class="messages"></div>      
         <div class="controls">
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label for="form_name">First Name</label>
-                        <input id="lname" type="text" readonly='true' name="fname" class="form-control"
-                            placeholder="{{fname}}">
+                        <input id="lname" type="text" readonly='true' value="{{fname}}" name="fname"
+                            class="form-control" placeholder="{{fname}}">
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label for="form_email">Last Name</label>
-                        <input id="fname" type="text" readonly='true' name="lname" class="form-control"
-                            placeholder="{{lname}}">
+                        <input id="fname" type="text" readonly='true' value="{{lname}}" name="lname"
+                            class="form-control" placeholder="{{lname}}">
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label for="form_phone">Phone</label>
-                        <input id="form_phone" type="tel" name="phoneNumber" readonly='true' class="form-control"
-                            placeholder={{phoneNumber}}>
+                        <input id="form_phone" type="tel" value="{{phoneNumber}}" name="phoneNumber" readonly='true'
+                            class="form-control" placeholder={{phoneNumber}}>
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
@@ -70,6 +74,8 @@
         <div class="col-md-12">
             <input type="submit" class="btn btn-warning btn-send" value="Complete Transaction">
         </div>
-
+        
     </form>
+
 </div>
+

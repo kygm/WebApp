@@ -22,6 +22,10 @@ db.once('open', () => {
 require('./models/Clients');
 const Client = mongoose.model('Clients');
 
+//load transact model
+require('./models/Transaction');
+const Transaction = mongoose.model('Transactions');
+
 //must load transact and document models
 //afterwards
 
@@ -67,15 +71,21 @@ app.get('/clients/viewClient', (req, res) => {
 //post route, phone number to search client
 app.post('/clients/addTransact/:id', (req, res) => {
 
-  Client.find({
-    phoneNumber: req.params.id
+  Client.findOne({
+    phoneNumber: req.params.id,
   })
-    .then(
-      res.redirect('/clients/addTransact')
-    );
+    .then(clients =>
+      {
+        res.render('./clients/addTransact',
+        {
+          fname: clients.fname,
+          lname: clients.lname,
+          phoneNumber: clients.phoneNumber
+        });
+        console.log(clients);
+      });
   console.log(req.params.id);
 });
-
 
 //addTransact page
 app.get('/clients/addTransact', (req, res) => {
@@ -119,11 +129,28 @@ app.post('/clients', (req, res) => {
 
 //completeTransact page
 app.post('/clients/completeTransact', (req, res) => {
-  res.render('./completeTransact');
+
+  const newTransact = 
+  {
+    fname: req.body.fname,
+    lname: req.body.lname,
+    phoneNumber: req.body.phoneNumber,
+    cost: req.body.cost,
+    price: req.body.price,
+    time: req.body.time,
+    message: req.body.message
+  }
+
+  new Transaction(newTransact)
+  .save()
+  .then(transaction =>
+    {
+      res.redirect('/clients/viewTransact')
+    })
+  console.log(req.body);
+  res.render('./clients/completeTransact');
 });
-app.get('/clients/completeTransact', (req, res) => {
-  res.render('./completeTransact');
-});
+
 
 
 
@@ -134,6 +161,5 @@ app.get('/clients/completeTransact', (req, res) => {
 //port selection
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
-  // console.log(Client.find({})
-  // .sort({date: 'desc'}));
+
 });

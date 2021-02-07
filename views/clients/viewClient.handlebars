@@ -16,9 +16,9 @@
   </thead>
   <tbody>
     <tr>
-      <td data-label="First Name"><input type="text"value={{fname}} class="form-control"name="fname"readonly></td>
-      <td data-label="Last Name"><input type="text"value={{lname}} class="form-control"name="lname"readonly></td>
-      <td data-label="Phone Number"><input type="text"value={{phoneNumber}} class="form-control"name="phoneNumber"readonly></td>
+      <td label="First Name"><input type="text"value={{fname}} class="form-control"name="fname"readonly></td>
+      <td label="Last Name"><input type="text"value={{lname}} class="form-control"name="lname"readonly></td>
+      <td label="Phone Number"><input type="text"value={{phoneNumber}} class="form-control"name="phoneNumber"readonly></td>
       <td>
         <form method="get" action="/clients/addTransact/{{phoneNumber}}/{{fname}}/{{lname}}">
           <input name='id' type='submit' value="Add Transaction" class='btn btn-secondary' />
@@ -77,7 +77,7 @@
   }
   
   td:before {
-    content: attr(data-label);
+    content: attr(label);
     display: inline-block;
     line-height: 1.5;
     width: 100%;

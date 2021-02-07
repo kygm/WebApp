@@ -11,9 +11,9 @@
   </thead>
   <tbody>
     <tr>
-      <td><input type="text"value={{fname}} class="form-control"name="fname"readonly></td>
-      <td><input type="text"value={{lname}} class="form-control"name="lname"readonly></td>
-      <td><input type="text"value={{lname}} class="form-control"name="phoneNumber"readonly></td>
+      <td label="First Name"><input type="text"value={{fname}} class="form-control"name="fname"readonly></td>
+      <td label="Last Name"><input type="text"value={{lname}} class="form-control"name="lname"readonly></td>
+      <td label="Phone Number"><input type="text"value={{lname}} class="form-control"name="phoneNumber"readonly></td>
       <td>
         <form method="post" action="/clients/addTransact/{{phoneNumber}}">
           <input name='id' type='submit' value="Add Transaction" class='btn btn-secondary' />
@@ -26,3 +26,35 @@
 {{else}}
 <h1>No Transactions in Database</h1>
 {{/each}}
+<style>
+/*Mobile View*/
+@media  only screen and  (max-width: 760px)  {
+  
+  td, tr :not(form) { display: block; }
+  
+  /* Hide table headers (but not display: none;, for accessibility) */
+  
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  tr { border: 1px solid rgb(119, 118, 175); }
+  tr + tr { margin-top: 1.5em; }
+  td {
+    /* make like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+    text-align: left;
+  }
+  td:before {
+    content: attr(label);
+    display: inline-block;
+    line-height: 1.5;
+    width: 100%;
+    white-space: nowrap;
+  }
+}
+</style>

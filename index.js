@@ -5,7 +5,6 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-
 //mongodb database setup
 mongoose.connect('mongodb://localhost/KYGM_Services',
   {
@@ -69,15 +68,17 @@ app.get('/clients/viewClient', (req, res) => {
     });
 });
 //post route, phone number to search client
-app.get('/clients/addTransact/:id/:fname/:lname', (req, res) => {
-  console.log(req.params);
+app.post('/clients/addTransact', (req, res) => {
   res.render('./clients/addTransact',
     {
-      fname: req.params.fname,
-      lname: req.params.lname,
-      phoneNumber: req.params.id
+      fname: req.body.fname,
+      lname: req.body.lname,
+      phoneNumber: req.body.phoneNumber
     });
-    
+  console.log("body");
+  console.log(req.body);
+  console.log("params");
+  console.log(req.params);
 
   //console.log(req.params.id);
 });
@@ -89,7 +90,14 @@ app.get('/clients/addTransact', (req, res) => {
 
 //viewTransact page
 app.get('/clients/viewTransact', (req, res) => {
-  res.render('./clients/viewTransact');
+  Transaction.find({}).lean()
+    .sort({ date: 'desc' })
+    .then(transactions => {
+      res.render('./clients/viewTransact',
+      {
+        transactions: transactions
+      });
+    });
 });
 
 //addClient page
@@ -113,12 +121,12 @@ app.post('/clients', (req, res) => {
     descript: req.body.descript
 
   }
-
   new Client(newClient)
     .save()
     .then(client => {
       res.redirect('./clients/viewClient');
     })
+  res.send(req.body);
   console.log(req.body);
 });
 
@@ -131,10 +139,11 @@ app.post('/clients/completeTransact', (req, res) => {
     fname: req.body.fname,
     lname: req.body.lname,
     phoneNumber: req.body.phoneNumber,
-    cost: req.body.cost,
-    price: req.body.price,
-    time: req.body.time,
-    message: req.body.message
+    transactCost: req.body.cost,
+    transactPrice: req.body.price,
+    transactTime: req.body.time,
+    descript: req.body.message,
+    transactName: req.body.transactName
   }
 
   new Transaction(newTransact)
@@ -143,7 +152,6 @@ app.post('/clients/completeTransact', (req, res) => {
       res.redirect('/clients/viewTransact')
     })
   console.log(req.body);
-  res.render('./clients/completeTransact');
 });
 
 

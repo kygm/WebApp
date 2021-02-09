@@ -3,7 +3,7 @@
 <form action="searchClient"><input type="text"id="searchbar"placeholder="Search by first or last name"
   class="form-control"onkeyup="search()" ></form>
 
-{{#each clients}}
+
 
 <table class="table">
   <thead>
@@ -15,22 +15,25 @@
     </tr>
   </thead>
   <tbody>
+    {{#each clients}}
+    <form method="post" action="addTransact">
     <tr>
-      <td label="First Name"><input type="text"value={{fname}} class="form-control"name="fname"readonly></td>
-      <td label="Last Name"><input type="text"value={{lname}} class="form-control"name="lname"readonly></td>
-      <td label="Phone Number"><input type="text"value={{phoneNumber}} class="form-control"name="phoneNumber"readonly></td>
+      <td label="First Name"><input type="text" value={{fname}} class="form-control"name="fname" readonly="true"></td>
+      <td label="Last Name"><input type="text" value={{lname}} class="form-control"name="lname" readonly="true"></td>
+      <td label="Phone Number"><input type="text" value={{phoneNumber}} class="form-control"name="phoneNumber" readonly="true"></td>
       <td>
-        <form method="get" action="/clients/addTransact/{{phoneNumber}}/{{fname}}/{{lname}}">
-          <input name='id' type='submit' value="Add Transaction" class='btn btn-secondary' />
-        </form>
+        
+          <input type='submit' class='btn btn-secondary' />
+        
       </td>
       
     </tr>
-  </tbody>
-</table>
-{{else}}
+    </form>
+    {{else}}
 <h1>No Clients in Database</h1>
 {{/each}}
+  </tbody>
+</table>
 <script>
   /*
 

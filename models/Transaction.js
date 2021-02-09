@@ -20,6 +20,11 @@ const Transactions = new Schema(
       type: String,
       required: true
     },
+    transactName:
+    {
+      type: String,
+      required: true
+    },
     descript:
     {
       type: String,

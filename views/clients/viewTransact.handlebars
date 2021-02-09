@@ -1,31 +1,31 @@
 
-{{#each Transactions}}
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
-      <th scope="col">Phone Number</th>
+      <th scope="col">Name</th>
+      <th scope="col">Service Name</th>
+      <th scope="col">Price</th>
       <th scope="col"><center>Options</center></th>
     </tr>
   </thead>
+  {{#each transactions}}
   <tbody>
     <tr>
-      <td label="First Name"><input type="text"value={{fname}} class="form-control"name="fname"readonly></td>
-      <td label="Last Name"><input type="text"value={{lname}} class="form-control"name="lname"readonly></td>
-      <td label="Phone Number"><input type="text"value={{lname}} class="form-control"name="phoneNumber"readonly></td>
+      <td label="Name"><input type="text" value="{{fname}} {{lname}}" class="form-control"name="fname" readonly="true"></td>
+      <td label="Service Name"><input type="text" value="{{transactName}}" class="form-control"name="lname" readonly="true"></td>
+      <td label="Service Description"><input type="text" value="${{transactPrice}}" class="form-control"name="phoneNumber" readonly="true"></td>
       <td>
         <form method="post" action="/clients/addTransact/{{phoneNumber}}">
-          <input name='id' type='submit' value="Add Transaction" class='btn btn-secondary' />
+          <input name='id' type='submit' value="View Details" class='btn btn-secondary' />
         </form>
       </td>
       
     </tr>
   </tbody>
-</table>
-{{else}}
+  {{else}}
 <h1>No Transactions in Database</h1>
 {{/each}}
+</table>
 <style>
 /*Mobile View*/
 @media  only screen and  (max-width: 760px)  {

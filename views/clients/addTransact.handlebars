@@ -1,5 +1,6 @@
 <div class="container-fluid py-3">
-    <form method="post" action="completeTransact.handlebars">
+
+    <form method="post" action="./completeTransact">
         <div class="controls">
             <div class="row">
                 <div class="col-sm-4">
@@ -12,7 +13,7 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label for="form_email">Last Name</label>
+                        <label for="form_name">Last Name</label>
                         <input id="fname" type="text" readonly='true' value="{{lname}}" name="lname"
                             class="form-control" placeholder="{{lname}}">
                         <div class="help-block with-errors"></div>
@@ -31,6 +32,16 @@
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group">
+                    <label for="form_phone">Service Name</label>
+                    <input id="form_phone" type="text" name="transactName" required="required" class="form-control"
+                        data-error="Enter service name" placeholder="Translate">
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
                     <label for="form_name">Cost</label>
                     <input id="cost" type="text" name="cost" class="form-control" required="required"
                         data-error="Enter Cost" placeholder="Expenses">
@@ -39,7 +50,7 @@
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
-                    <label for="form_email">Price</label>
+                    <label for="form_name">Price</label>
                     <input id="price" type="text" name="price" class="form-control" required="required"
                         data-error="Enter Price" placeholder="Charge">
                     <div class="help-block with-errors"></div>
@@ -47,7 +58,7 @@
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
-                    <label for="form_phone">Time</label>
+                    <label for="form_name">Time</label>
                     <input id="form_phone" type="text" name="time" required="required" class="form-control"
                         data-error="Enter time in hours" placeholder="3 hrs">
                     <div class="help-block with-errors"></div>
@@ -58,7 +69,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="form_message">Description</label>
-                    <textarea id="form_message" name="message" class="form-control" placeholder="What service was done?"
+                    <textarea id="form_message" name="message" class="form-control" placeholder="Service Details"
                         rows="4" required="required" data-error="send a message."></textarea>
                     <div class="help-block with-errors"></div>
                 </div>

@@ -1,30 +1,111 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-primary mb-3">
-  <div class="container">
-    <a class="navbar-brand" href="/">KYGM Services</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/about">About</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenu">Actions</a>
-          <div class="dropdown-menu">
-            <a href="/clients/viewClient" class="dropdown-item">View Clients</a>
-            <a href="/clients/addClient" class="dropdown-item">Add Clients</a>
-            <a href="/clients/viewClient" class="dropdown-item">Add Transaction</a>
-            <a href="/clients/viewTransact" class="dropdown-item">View Transaction</a>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<header>
+            <nav>
+               <div class="menu-icon">
+                  <i class="fa fa-bars fa-2x"></i>
+               </div>
+               
+               <div class="menu">
+                        <div class="logo">
+                              <a  href="/">KYGM Services</a>
+                        </div>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <ul>
+                     <li><a class="nav-link" href="/">Home </a></li>
+                     <li><a class="nav-link" href="/about">About</a></li>
+                     <li class="nav-item dropdown  ml-auto drpdwn">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenu">Actions</a>
+                        <div class="dropdown-menu">
+                              <a href="/clients/viewClient" class="dropdown-item">View Clients</a>
+                              <a href="/clients/addClient" class="dropdown-item">Add Clients</a>
+                              <a href="/clients/viewClient" class="dropdown-item">Add Transaction</a>
+                              <a href="/clients/viewTransact" class="dropdown-item">View Transaction</a>
+                        </div>
+                    </li>        
+                  </ul>
+               </div>
+            </nav>
+</header>
+<style>
+html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+}
+.logo {
+      line-height: 60px;
+      position: fixed;
+      float: left;
+      margin: 16px 46px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 20px;
+      letter-spacing: 2px;
+}
+nav {
+      position: fixed;
+      width: 100%;
+      line-height: 60px;
+}
+nav ul {
+      line-height: 60px;
+      list-style: none;
+      background: rgba(0, 0, 0, 0);
+      overflow: hidden;
+      color: #fff;
+      padding: 0;
+      text-align: right;
+      float: right;
+      margin: 0;
+      padding-right: 60px;
+      transition: 1s;
+}
+.drpdwn{
+      text-align: right;
+      float: right;
+}
+nav ul li {
+      display: inline-block;
+      padding: 16px 40px;;
+}
+@media(max-width: 786px) {
+      .logo {
+            position: fixed;
+            top: 0;
+            margin-top: 16px;
+      }
+      .showing {
+            max-height: 34em;
+      }
+      nav ul li {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 24px;
+            text-align: center;
+      }
+      .menu-icon {
+            display: block;
+      }
+}
+</style>
+<script>
+   $(document).ready(function() {
+            $(".menu-icon").on("click", function() {
+                  $("nav ul").toggleClass("showing");
+            });
+      });
+
+      // Scrolling Effect
+
+      $(window).on("scroll", function() {
+            if($(window).scrollTop()) {
+                  $('nav').addClass('black');
+            }
+
+            else {
+                  $('nav').removeClass('black');
+            }
+      })
+</script>

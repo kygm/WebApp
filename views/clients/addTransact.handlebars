@@ -52,14 +52,14 @@
                 <div class="form-group">
                     <label for="form_name">Cost</label>
                     <input id="cost" type="text" name="cost" class="form-control" required="required"
-                        data-error="Enter Cost" placeholder="Expenses">
+                        data-error="Enter Cost" onkeypress='validate(event)' placeholder="Expenses">
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="form_name">Price</label>
-                    <input id="price" type="text" name="price" class="form-control" required="required"
+                    <input id="price" type="text" onkeypress='validate(event)' name="price" class="form-control" required="required"
                         data-error="Enter Price" placeholder="Charge">
                     <div class="help-block with-errors"></div>
                 </div>
@@ -94,8 +94,30 @@
 </div>
 <style>
     body {
-      background-image: url("https://cdn2.iconfinder.com/data/icons/flat-money/114/money-add-512.png");
-      background-size: 33.7%;
-      background-repeat: repeat;
+        background-image: url("https://cdn2.iconfinder.com/data/icons/flat-money/114/money-add-512.png");
+        background-size: 33.7%;
+        background-repeat: repeat;
     }
-  </style>
+</style>
+
+<script>
+    //function that only allows numeric input into 
+    //cost and and price fields
+    function validate(evt) {
+        var theEvent = evt || window.event;
+
+        // Handle paste
+        if (theEvent.type === 'paste') {
+            key = event.clipboardData.getData('text/plain');
+        } else {
+            // Handle key press
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+        }
+        var regex = /[0-9]|\./;
+        if (!regex.test(key)) {
+            theEvent.returnValue = false;
+            if (theEvent.preventDefault) theEvent.preventDefault();
+        }
+    }
+</script>

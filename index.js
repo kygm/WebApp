@@ -6,11 +6,16 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 //mongodb database setup
-mongoose.connect('mongodb://localhost/KYGM_Services',
+
+//cloud db url
+const dbUrl = "mongodb+srv://admin:Password1@cluster.qtabs.mongodb.net/test?retryWrites=true&w=majority";
+
+mongoose.connect(dbUrl,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });
+
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
 db.once('open', () => {
@@ -54,11 +59,15 @@ app.get('/about', (req, res) => {
   res.render('about');
 });
 
+/*
+  ASYNC FUNCTIONS NEEDED FOR ACCESSING 
+  CLOUD BASED MONGO DB
+*/
 
 //viewClient pages
 //get route
-app.get('/clients/viewClient', (req, res) => {
-  Client.find({}).lean()
+app.get('/clients/viewClient', async(req, res) => {
+  await Client.find({}).lean()
     .sort({ date: 'desc' })
     .then(clients => {
       res.render('./clients/viewClient',
@@ -89,14 +98,14 @@ app.get('/clients/addTransact', (req, res) => {
 });
 
 //viewTransact page
-app.get('/clients/viewTransact', (req, res) => {
-  Transaction.find({}).lean()
+app.get('/clients/viewTransact', async(req, res) => {
+  await Transaction.find({}).lean()
     .sort({ date: 'desc' })
     .then(transactions => {
       res.render('./clients/viewTransact',
-      {
-        transactions: transactions,
-      });
+        {
+          transactions: transactions,
+        });
     });
 });
 
@@ -106,7 +115,7 @@ app.get('/clients/addClient', (req, res) => {
 });
 //working with posted information from 
 //add clients page
-app.post('/clients', (req, res) => {
+app.post('/clients', async(req, res) => {
   const newClient =
   {
     //in here goes the information
@@ -121,18 +130,18 @@ app.post('/clients', (req, res) => {
     descript: req.body.descript
 
   }
-  new Client(newClient)
+  await new Client(newClient)
     .save()
     .then(client => {
       res.redirect('./clients/viewClient');
-    })
-  res.send(req.body);
+    });
+
   console.log(req.body);
 });
 
 //completeTransact page
-app.post('/clients/completeTransact', (req, res) => {
-  
+app.post('/clients/completeTransact', async(req, res) => {
+
 
   const newTransact =
   {
@@ -147,7 +156,7 @@ app.post('/clients/completeTransact', (req, res) => {
     transactName: req.body.transactName
   }
 
-  new Transaction(newTransact)
+  await new Transaction(newTransact)
     .save()
     .then(transaction => {
       res.redirect('/clients/viewTransact')

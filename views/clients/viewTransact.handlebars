@@ -1,60 +1,85 @@
-
+<div>
+  <h3>View Transactions</h3>
+</div>
 <table class="table">
   <thead>
     <tr>
+      <th scope="col">Date</th>
       <th scope="col">Name</th>
       <th scope="col">Service Name</th>
       <th scope="col">Price</th>
-      <th scope="col"><center>Options</center></th>
+      <th scope="col">
+        <center>Options</center>
+      </th>
     </tr>
   </thead>
   {{#each transactions}}
   <tbody>
     <tr>
-      <td label="Name"><input type="text" value="{{fname}} {{lname}}" class="form-control"name="fname" readonly="true"></td>
-      <td label="Service Name"><input type="text" value="{{transactName}}" class="form-control"name="lname" readonly="true"></td>
-      <td label="Service Description"><input type="text" value="${{transactPrice}}" class="form-control"name="phoneNumber" readonly="true"></td>
+      <td label="Date"><input type="text" value="{{transactDate}}" class="form-control" name="transactDate" readonly="true">
+      </td>
+      <td label="Name"><input type="text" value="{{fname}} {{lname}}" class="form-control" name="fname" readonly="true">
+      </td>
+      <td label="Service Name"><input type="text" value="{{transactName}}" class="form-control" name="lname"
+          readonly="true"></td>
+      <td label="Service Price"><input type="text" value="${{transactPrice}}" class="form-control" name="phoneNumber"
+          readonly="true"></td>
       <td>
-        <form method="post" action="/clients/addTransact/{{phoneNumber}}">
-          <input name='id' type='submit' value="View Details" class='btn btn-secondary' />
+        <form method="post" action="/clients/transactDetail/{{phoneNumber}}">
+          <input id="sub" name='id' type='submit' value="View Details" class='btn btn-secondary' />
         </form>
       </td>
-      
+
     </tr>
   </tbody>
   {{else}}
-<h1>No Transactions in Database</h1>
-{{/each}}
+  <h1>No Transactions in Database</h1>
+  {{/each}}
 </table>
 <style>
-/*Mobile View*/
-@media  only screen and  (max-width: 760px)  {
-  
-  td, tr :not(form) { display: block; }
-  
-  /* Hide table headers (but not display: none;, for accessibility) */
-  
-  thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
+  /*Mobile View*/
+  @media only screen and (max-width: 760px) {
+
+    td,
+    tr :not(form) {
+      display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    tr {
+      border: 1px solid rgb(119, 118, 175);
+    }
+
+    tr+tr {
+      margin-top: 1.5em;
+    }
+
+    td {
+      /* make like a "row" */
+      border: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      padding-left: 50%;
+      text-align: left;
+    }
+
+    td:before {
+      content: attr(label);
+      display: inline-block;
+      line-height: 1.5;
+      width: 100%;
+      white-space: nowrap;
+    }
+    #sub{
+      display: block;
+      width: 100%;
+    }
   }
-  tr { border: 1px solid rgb(119, 118, 175); }
-  tr + tr { margin-top: 1.5em; }
-  td {
-    /* make like a "row" */
-    border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 50%;
-    text-align: left;
-  }
-  td:before {
-    content: attr(label);
-    display: inline-block;
-    line-height: 1.5;
-    width: 100%;
-    white-space: nowrap;
-  }
-}
 </style>

@@ -95,7 +95,7 @@ app.get('/clients/viewTransact', (req, res) => {
     .then(transactions => {
       res.render('./clients/viewTransact',
       {
-        transactions: transactions
+        transactions: transactions,
       });
     });
 });
@@ -132,13 +132,14 @@ app.post('/clients', (req, res) => {
 
 //completeTransact page
 app.post('/clients/completeTransact', (req, res) => {
-
+  
 
   const newTransact =
   {
     fname: req.body.fname,
     lname: req.body.lname,
     phoneNumber: req.body.phoneNumber,
+    transactDate: req.body.transactDate,
     transactCost: req.body.cost,
     transactPrice: req.body.price,
     transactTime: req.body.time,

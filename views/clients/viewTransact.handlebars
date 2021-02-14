@@ -19,7 +19,12 @@
           <input name='id' type='submit' value="View Details" class='btn btn-secondary' />
         </form>
       </td>
-      
+    </tr>
+    <tr class="hidden">
+      <td label="Date"><input type="date" value="{{t_date}}" class="form-control"name="tDate" readonly="true"></td>
+      <td label="Time"><input type="number" value="{{t_time_hrs}}" class="form-control"name="Time" readonly="true"></td>
+      <td label="Charge"><input type="number" value="${{t_expenses}}" class="form-control"name="Expenses" readonly="true"></td>
+      <td label="Expenses"><input type="number" value="${{t_charge}}" class="form-control"name="Charge" readonly="true"></td>
     </tr>
   </tbody>
   {{else}}
@@ -27,6 +32,9 @@
 {{/each}}
 </table>
 <style>
+  .hidden{
+    display:none;
+  }
 /*Mobile View*/
 @media  only screen and  (max-width: 760px)  {
   

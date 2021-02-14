@@ -1,11 +1,11 @@
 <header>
-            <nav>
+            <nav class="btn-light">
                <div class="menu-icon">
                   <i class="fa fa-bars fa-2x"></i>
                </div>
                
-               <div class="menu">
-                        <div class="logo">
+               <div class="menu container">
+                        <div class="logo ">
                               <a  href="/">KYGM Services</a>
                         </div>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -15,8 +15,8 @@
                   <ul>
                      <li><a class="nav-link" href="/">Home </a></li>
                      <li><a class="nav-link" href="/about">About</a></li>
-                     <li class="nav-item dropdown  ml-auto drpdwn">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenu">Actions</a>
+                     <li class="nav-item dropdown  ml-auto">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"id="navbarDropdownMenu">Actions</a>
                         <div class="dropdown-menu">
                               <a href="/clients/viewClient" class="dropdown-item">View Clients</a>
                               <a href="/clients/addClient" class="dropdown-item">Add Clients</a>
@@ -28,6 +28,7 @@
                </div>
             </nav>
 </header>
+
 <style>
 html, body {
       margin: 0;
@@ -38,7 +39,7 @@ html, body {
       line-height: 60px;
       position: fixed;
       float: left;
-      margin: 16px 46px;
+      padding: 0px 46px;
       color: #fff;
       font-weight: bold;
       font-size: 20px;
@@ -47,10 +48,11 @@ html, body {
 nav {
       position: fixed;
       width: 100%;
-      line-height: 60px;
+      line-height: 10px;
+      z-index: 5;
 }
 nav ul {
-      line-height: 60px;
+      line-height: 10px;
       list-style: none;
       background: rgba(0, 0, 0, 0);
       overflow: hidden;
@@ -62,9 +64,10 @@ nav ul {
       padding-right: 60px;
       transition: 1s;
 }
-.drpdwn{
+.dropdown{
       text-align: right;
       float: right;
+      z-index: 6;
 }
 nav ul li {
       display: inline-block;

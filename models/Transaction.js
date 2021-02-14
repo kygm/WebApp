@@ -36,6 +36,11 @@ const Transactions = new Schema(
       type: Number,
       required: false
     },
+    transactDate:
+    {
+      type: Date,
+      required: true
+    },
     //what I charged
     transactPrice:
     {

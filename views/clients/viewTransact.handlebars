@@ -1,7 +1,7 @@
 <div>
   <h3>View Transactions</h3>
 </div>
-<table class="table">
+<table class="table table-dark">
   <thead>
     <tr>
       <th scope="col">Date</th>
@@ -9,33 +9,41 @@
       <th scope="col">Service Name</th>
       <th scope="col">Price</th>
       <th scope="col">
-        <center>Options</center>
+        Options
       </th>
     </tr>
   </thead>
   {{#each transactions}}
   <tbody>
     <tr>
-      <td label="Date"><input type="text" value="{{transactDate}}" class="form-control" name="transactDate" readonly="true">
+      <td label="Date"><input type="date" value="{{transactDate}}" class="form-control" name="transactDate" readonly="true">
       </td>
       <td label="Name"><input type="text" value="{{fname}} {{lname}}" class="form-control" name="fname" readonly="true">
       </td>
-      <td label="Service Name"><input type="text" value="{{transactName}}" class="form-control" name="lname"
-          readonly="true"></td>
-      <td label="Service Price"><input type="text" value="${{transactPrice}}" class="form-control" name="phoneNumber"
-          readonly="true"></td>
-      <td>
-        <form method="post" action="/clients/transactDetail/{{phoneNumber}}">
-          <input id="sub" name='id' type='submit' value="View Details" class='btn btn-secondary' />
-        </form>
+      <td label="Service Name"><input type="text" value="{{transactName}}" class="form-control" name="lname" readonly="true">
       </td>
+      <td label="Service Price"><input type="text" value="${{transactPrice}}" class="form-control" name="transactPrice" readonly="true">
+      </td>
+      <td><nav>
+        <button class="navbar-toggler btn-dark" type="button" data-toggle="collapse" data-target="#transDetails{{phoneNumber}}" 
+        aria-controls="transDetails{{phoneNumber}}" aria-expanded="false">View Details</button>
+      </nav></td>
+    <thead id="transDetails{{phoneNumber}}"class="collapse">
+    <tr>
+      <th scope="col">Time</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Cost</th>
+      <th scope="col">Description</th>
+      <th scope="col"><button class="btn btn-warning hidden">Edit</button></th>
     </tr>
-    <tr class="hidden">
-      <td label="Date"><input type="date" value="{{t_date}}" class="form-control"name="tDate" readonly="true"></td>
-      <td label="Time"><input type="number" value="{{t_time_hrs}}" class="form-control"name="Time" readonly="true"></td>
-      <td label="Charge"><input type="number" value="${{t_expenses}}" class="form-control"name="Expenses" readonly="true"></td>
-      <td label="Expenses"><input type="number" value="${{t_charge}}" class="form-control"name="Charge" readonly="true"></td>
-
+  </thead>
+    </tr>
+    <tr id="transDetails{{phoneNumber}}"class="collapse">
+      <td label="Time"><input type="number" value="{{transactTime}}" class="form-control"name="Time" readonly="true"></td>
+      <td label="Phone"><input type="number" value="{{phoneNumber}}" class="form-control"name="phone" readonly="true"></td>
+      <td label="Cost"><input type="number" value="${{transactCost}}" class="form-control"name="Cost" readonly="true"></td>
+      <td label="Description"><textarea value="{{descript}}" class="form-control"name="description" readonly="true"></textarea></td>
+      <td><button class="btn btn-danger hidden">Delete</button></td>
     </tr>
   </tbody>
   {{else}}

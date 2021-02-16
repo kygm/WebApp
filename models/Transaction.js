@@ -5,34 +5,28 @@ const Transactions = new Schema(
   {
     //fname, lname, phoneNumber
     //come from the client page
-    fname:
-    {
+    fname:{
       type: String,
       required: true
     },
-    lname:
-    {
+    lname:{
       type: String,
       required: true
     },
-    phoneNumber:
-    {
+    phoneNumber:{
       type: String,
       required: true
     },
-    transactName:
-    {
+    transactName:{
       type: String,
       required: true
     },
-    descript:
-    {
+    descript:{
       type: String,
       required: true
     },
     //what I spent
-    transactCost:
-    {
+    transactCost:{
       type: Number,
       required: false
     },
@@ -47,8 +41,7 @@ const Transactions = new Schema(
       type: Number,
       required: true
     },
-    transactTime:
-    {
+    transactTime:{
       type: String,
       required: true
     },

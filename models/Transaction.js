@@ -32,7 +32,7 @@ const Transactions = new Schema(
     },
     transactDate:
     {
-      type: Date,
+      type: String,
       required: true
     },
     //what I charged

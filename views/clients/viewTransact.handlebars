@@ -16,7 +16,7 @@
   {{#each transactions}}
   <tbody>
     <tr>
-      <td label="Date"><input type="date" value="{{transactDate}}" class="form-control" name="transactDate" readonly="true">
+      <td label="Date"><input type="text" value="{{transactDate}}" class="form-control" name="transactDate" readonly="true">
       </td>
       <td label="Name"><input type="text" value="{{fname}} {{lname}}" class="form-control" name="fname" readonly="true">
       </td>
@@ -39,10 +39,10 @@
   </thead>
     </tr>
     <tr id="transDetails{{phoneNumber}}"class="collapse">
-      <td label="Time"><input type="number" value="{{transactTime}}" class="form-control"name="Time" readonly="true"></td>
-      <td label="Phone"><input type="number" value="{{phoneNumber}}" class="form-control"name="phone" readonly="true"></td>
-      <td label="Cost"><input type="number" value="${{transactCost}}" class="form-control"name="Cost" readonly="true"></td>
-      <td label="Description"><textarea value="{{descript}}" class="form-control"name="description" readonly="true"></textarea></td>
+      <td label="Time"><input type="time" value="{{transactTime}}" class="form-control"name="Time" readonly="true"></td>
+      <td label="Phone"><input type="text" value="{{phoneNumber}}" class="form-control"name="phone" readonly="true"></td>
+      <td label="Cost"><input type="text" value="${{transactCost}}" class="form-control"name="Cost" readonly="true"></td>
+      <td label="Description"><input value="{{descript}}" class="form-control"name="description" readonly="true"></textarea></td>
       <td><button class="btn btn-danger hidden">Delete</button></td>
     </tr>
   </tbody>

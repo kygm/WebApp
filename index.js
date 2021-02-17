@@ -106,6 +106,7 @@ app.get('/clients/viewTransact', async(req, res) => {
         {
           transactions: transactions,
         });
+        console.log(transactions);
     });
 });
 
@@ -163,6 +164,8 @@ app.post('/clients/completeTransact', async(req, res) => {
     })
   console.log(req.body);
 });
+
+
 
 
 

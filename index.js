@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 
 //mongodb database setup
 
+connection = startDb(dbUrl)
 //cloud db url
 const dbUrl = "mongodb+srv://admin:Password1@cluster.qtabs.mongodb.net/test?retryWrites=true&w=majority";
 
@@ -164,9 +165,6 @@ app.post('/clients/completeTransact', async(req, res) => {
     })
   console.log(req.body);
 });
-
-
-
 
 
 

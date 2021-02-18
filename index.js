@@ -128,7 +128,17 @@ app.get('/clients/viewTransact', async (req, res) => {
       console.log(transactions);
     });
 });
-
+// delete transaction
+app.delete('/:dateEntered',ensureAuthenticated,async(req,res)=>{
+  //res.send('Delete');
+  await Transaction.deleteOne({
+    dateEntered:req.params.dateEntered
+  })
+  .then(()=>{
+    req.flash('successMsg','Transaction Deleted');
+    res.redirect('./clients/viewTransact');
+  });
+});
 //addClient page
 app.get('/clients/addClient', (req, res) => {
   res.render('./clients/addClient');
@@ -182,6 +192,7 @@ app.post('/clients/completeTransact', async (req, res) => {
     })
   console.log(req.body);
 });
+
 
 
 //capitalize first letter f(x)

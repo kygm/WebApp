@@ -43,7 +43,9 @@
       <td label="Phone"><input type="text" value="{{phoneNumber}}" class="form-control"name="phone" readonly="true"></td>
       <td label="Cost"><input type="text" value="${{transactCost}}" class="form-control"name="Cost" readonly="true"></td>
       <td label="Description"><input value="{{descript}}" class="form-control"name="description" readonly="true"></textarea></td>
-      <td><button class="btn btn-danger hidden"type="submit">Delete</button></td>
+      <td><form action="./deleteTransaction/{{dateEntered}}?_method=DELETE"method="post">
+        <button class="btn btn-danger hidden"type="submit"value="{{dateEntered}}">Delete</button>
+      </form></td>
     </tr>
   </tbody>
   {{else}}

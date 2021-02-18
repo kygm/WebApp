@@ -55,7 +55,7 @@ app.get('/', (req, res) => {
     });
 });
 
-//about page
+//about page GET
 app.get('/about', (req, res) => {
   res.render('about');
 });

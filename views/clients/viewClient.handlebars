@@ -1,18 +1,20 @@
 
 <div class="header">
   <h3>View Clients</h3>
+    <a href="./viewClient"><input id="btn" name="btn" value="View all Clients" class='btn btn-primary' /></a>
 </div>
+<br/>
 <div>
-<form class="form-inline" action="searchClient">
+<form class="form-inline" method="post" action="viewClient">
   <input type="text" id="searchbar"placeholder="Search by first or last name"
-  class="form-control"onkeyup="search()" >
-  <input type='submit' id="btn" value="Search" class='btn btn-secondary' />
+  class="form-control" name="search">
+  <input type='submit' id="btn" name="btn" value="Search" class='btn btn-secondary' />
   </form>
   <br/>
 </div>
 
 
-
+{{#each clients}}
 <table class="table">
   <thead>
     <tr>
@@ -23,23 +25,20 @@
     </tr>
   </thead>
   <tbody>
-    {{#each clients}}
     <form method="post" action="addTransact">
     <tr>
-      <td label="First Name"><input type="text" value={{fname}} class="form-control"name="fname" readonly="true"></td>
-      <td label="Last Name"><input type="text" value={{lname}} class="form-control"name="lname" readonly="true"></td>
-      <td label="Phone Number"><input type="text" value={{phoneNumber}} class="form-control"name="phoneNumber" readonly="true"></td>
-      <td> 
-        
+      <td label="First Name"><input type="text" value="{{fname}}" class="form-control"name="fname" readonly="true"></td>
+      <td label="Last Name"><input type="text" value="{{lname}}" class="form-control"name="lname" readonly="true"></td>
+      <td label="Phone Number"><input type="text" value="{{phoneNumber}}" class="form-control"name="phoneNumber" readonly="true"></td>
+      <td>         
           <input id="sub" type='submit' value="New Transaction" class='btn btn-secondary' />
-        
-      </td>
-      
+      </td>  
     </tr>
     </form>
-    {{else}}
-<h1>No Clients in Database</h1>
-{{/each}}
+  {{else}}
+    <h1>No Results Found</h1>
+    <a href="viewClient"><h3>View all Clients</h3></a>
+  {{/each}}
   </tbody>
 </table>
 <script>

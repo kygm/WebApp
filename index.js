@@ -4,6 +4,7 @@ const app = express();
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const { removeAllListeners } = require('nodemon');
 
 //mongodb database setup
 
@@ -54,7 +55,7 @@ app.get('/', (req, res) => {
     });
 });
 
-//about page
+//about page GET
 app.get('/about', (req, res) => {
   res.render('about');
 });
@@ -64,9 +65,25 @@ app.get('/about', (req, res) => {
   CLOUD BASED MONGO DB
 */
 
+app.post('/clients/viewClient', async (req, res) => {
+  var search = req.body.search;
+  search = capFL(search);
+  console.log("query = "+search);
+
+  await Client.find({fname: search}).lean()
+    .then(client => {
+      res.render('./clients/viewClient',
+        {
+          clients: client
+        });
+        console.log(client);
+    });
+});
 //viewClient pages
 //get route
-app.get('/clients/viewClient', async(req, res) => {
+app.get('/clients/viewClient', async (req, res) => {
+
+  
   await Client.find({}).lean()
     .sort({ date: 'desc' })
     .then(clients => {
@@ -75,6 +92,7 @@ app.get('/clients/viewClient', async(req, res) => {
           clients: clients
         });
     });
+
 });
 //post route, phone number to search client
 app.post('/clients/addTransact', (req, res) => {
@@ -98,7 +116,8 @@ app.get('/clients/addTransact', (req, res) => {
 });
 
 //viewTransact page
-app.get('/clients/viewTransact', async(req, res) => {
+app.get('/clients/viewTransact', async (req, res) => {
+
   await Transaction.find({}).lean()
     .sort({ date: 'desc' })
     .then(transactions => {
@@ -106,7 +125,7 @@ app.get('/clients/viewTransact', async(req, res) => {
         {
           transactions: transactions,
         });
-        console.log(transactions);
+      console.log(transactions);
     });
 });
 
@@ -116,7 +135,7 @@ app.get('/clients/addClient', (req, res) => {
 });
 //working with posted information from 
 //add clients page
-app.post('/clients', async(req, res) => {
+app.post('/clients', async (req, res) => {
   const newClient =
   {
     //in here goes the information
@@ -141,8 +160,7 @@ app.post('/clients', async(req, res) => {
 });
 
 //completeTransact page
-app.post('/clients/completeTransact', async(req, res) => {
-
+app.post('/clients/completeTransact', async (req, res) => {
 
   const newTransact =
   {
@@ -166,9 +184,11 @@ app.post('/clients/completeTransact', async(req, res) => {
 });
 
 
-
-
-
+//capitalize first letter f(x)
+function capFL(string) {
+  string = string.toLowerCase();
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 
 //********************CONFIG*SECTION***********************//

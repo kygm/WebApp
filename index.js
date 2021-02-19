@@ -129,7 +129,7 @@ app.get('/clients/viewTransact', async (req, res) => {
     });
 });
 // delete transaction
-app.delete('/:dateEntered',ensureAuthenticated,async(req,res)=>{
+app.delete('/:dateEntered',async(req,res)=>{
   //res.send('Delete');
   await Transaction.deleteOne({
     dateEntered:req.params.dateEntered

@@ -15,7 +15,7 @@
   </thead>
   {{#each transactions}}
   <tbody>
-    <tr>
+    <tr><form action=""method="post">
       <td label="Date"><input type="text" value="{{transactDate}}" class="form-control" name="transactDate" readonly="true">
       </td>
       <td label="Name"><input type="text" value="{{fname}} {{lname}}" class="form-control" name="fname" readonly="true">
@@ -34,18 +34,21 @@
       <th scope="col">Phone</th>
       <th scope="col">Cost</th>
       <th scope="col">Description</th>
-      <th scope="col"><button class="btn btn-warning hidden">Edit</button></th>
+      <th scope="col"><button onclick=editFields({{dateEntered}}) class="btn btn-warning">Edit</button></th>
     </tr>
   </thead>
     </tr>
-    <tr id="transDetails{{phoneNumber}}"class="collapse">
-      <td label="Time"><input type="text" value="{{transactTime}} Hours" class="form-control"name="Time" readonly="true"></td>
+    <tr id="transDetails{{+}}"class="collapse">
+      <td label="Time"><input type="text" value="{{transactTime}} Hours" class="form-control"name="Time" readonly='true'></td>
       <td label="Phone"><input type="text" value="{{phoneNumber}}" class="form-control"name="phone" readonly="true"></td>
       <td label="Cost"><input type="text" value="${{transactCost}}" class="form-control"name="Cost" readonly="true"></td>
       <td label="Description"><input value="{{descript}}" class="form-control"name="description" readonly="true"></textarea></td>
-      <td><form action="./deleteTransaction/{{dateEntered}}?_method=DELETE"method="post">
-        <button class="btn btn-danger hidden"type="submit"value="{{dateEntered}}">Delete</button>
+      <td class="disp"id="delete{{dateEntered}}"><form action="../clients/{{dateEntered}}?_method=DELETE"method="post">
+        <button class="btn btn-danger"type="submit"value="{{dateEntered}}">Delete</button>
       </form></td>
+      <td class="hidden"id="enterEdit{{dateEntered}}">
+        <button type="submit"value="{{dateEntered}}">Submit</button>
+      </td></form>
     </tr>
   </tbody>
   {{else}}
@@ -53,9 +56,8 @@
   {{/each}}
 </table>
 <style>
-  .hidden{
-    display:block;
-  }
+  .disp{  display: block;  }
+  .hidden{  display:none;  }
 /*Mobile View*/
 @media  only screen and  (max-width: 760px)  {
   
@@ -130,8 +132,14 @@
     }
   }
 </style>
-
 <script>
+  function editFields(dateEntered){
+    if(document.getElementById("delete"+dateEntered).style.display=="block"){
+      document.getElementById("delete"+dateEntered).style.display="none";
+      document.getElementById("enterEdit"+dateEntered).style.display="block";
+    }
+    
+  }
   /*
 FOR KENNY REF
   const app = 

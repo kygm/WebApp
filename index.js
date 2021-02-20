@@ -5,35 +5,6 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const { removeAllListeners } = require('nodemon');
-
-//mongodb database setup
-
-//cloud db url
-const dbUrl = "mongodb+srv://admin:Password1@cluster.qtabs.mongodb.net/test?retryWrites=true&w=majority";
-
-mongoose.connect(dbUrl,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error: '));
-db.once('open', () => {
-  console.log('MongoDB Connected');
-});
-
-//load clients model
-require('./models/Clients');
-const Client = mongoose.model('Clients');
-
-//load transact model
-require('./models/Transaction');
-const Transaction = mongoose.model('Transactions');
-
-//must load transact and document models
-//afterwards
-
 //port declaration
 const PORT = 1500;
 
@@ -44,155 +15,201 @@ app.set('view engine', 'handlebars');
 //body parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+var show = 0;
 
-//ROUTES
-//index page
-app.get('/', (req, res) => {
-  const theTitle = 'Welcome Back!';
-  res.render('index',
-    {
-      title: theTitle
-    });
-});
+//mongodb database setup
+//cloud db url
+const dbUrl = "mongodb+srv://admin:Password1@cluster.qtabs.mongodb.net/test?retryWrites=true&w=majority";
 
-//about page GET
-app.get('/about', (req, res) => {
-  res.render('about');
-});
+mongoose.connect(dbUrl,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+//for showing page if conn error
+var show;
 
-/*
-  ASYNC FUNCTIONS NEEDED FOR ACCESSING 
-  CLOUD BASED MONGO DB
-*/
+const db = mongoose.connection;
 
-app.post('/clients/viewClient', async (req, res) => {
-  var search = req.body.search;
-  search = capFL(search);
-  console.log("query = "+search);
+//console.log(db.error);
+db.on('error', () => { 
+  console.error.bind(console, 'connection error: ');
+}).then(show = 1);
+db.once('open', () => {
+  console.log('MongoDB Connected');
+}).then(show = 2);
 
-  await Client.find({fname: search}).lean()
-    .then(client => {
-      res.render('./clients/viewClient',
-        {
-          clients: client
-        });
+console.log(show);
+
+if (show == 2) {
+  //load clients model
+  require('./models/Clients');
+  const Client = mongoose.model('Clients');
+
+  //load transact model
+  require('./models/Transaction');
+  const Transaction = mongoose.model('Transactions');
+
+  //must load transact and document models
+  //afterwards
+
+  //ROUTES
+  //index page
+  app.get('/', (req, res) => {
+    const theTitle = 'Welcome Back!';
+    res.render('index',
+      {
+        title: theTitle
+      });
+  });
+
+  //about page GET
+  app.get('/about', (req, res) => {
+    res.render('about');
+  });
+
+  /*
+    ASYNC FUNCTIONS NEEDED FOR ACCESSING 
+    CLOUD BASED MONGO DB
+  */
+
+  app.post('/clients/viewClient', async (req, res) => {
+    var search = req.body.search;
+    search = capFL(search);
+    console.log("query = " + search);
+
+    await Client.find({ fname: search }).lean()
+      .then(client => {
+        res.render('./clients/viewClient',
+          {
+            clients: client
+          });
         console.log(client);
-    });
-});
-//viewClient pages
-//get route
-app.get('/clients/viewClient', async (req, res) => {
+      });
+  });
+  //viewClient pages
+  //get route
+  app.get('/clients/viewClient', async (req, res) => {
 
-  
-  await Client.find({}).lean()
-    .sort({ date: 'desc' })
-    .then(clients => {
-      res.render('./clients/viewClient',
-        {
-          clients: clients
-        });
-    });
 
-});
-//post route, phone number to search client
-app.post('/clients/addTransact', (req, res) => {
-  res.render('./clients/addTransact',
+    await Client.find({}).lean()
+      .sort({ date: 'desc' })
+      .then(clients => {
+        res.render('./clients/viewClient',
+          {
+            clients: clients
+          });
+      });
+
+  });
+  //post route, phone number to search client
+  app.post('/clients/addTransact', (req, res) => {
+    res.render('./clients/addTransact',
+      {
+        fname: req.body.fname,
+        lname: req.body.lname,
+        phoneNumber: req.body.phoneNumber
+      });
+    console.log("body");
+    console.log(req.body);
+    console.log("params");
+    console.log(req.params);
+
+    //console.log(req.params.id);
+  });
+
+  //addTransact page
+  app.get('/clients/addTransact', (req, res) => {
+    res.render('./clients/addTransact');
+  });
+
+  //viewTransact page
+  app.get('/clients/viewTransact', async (req, res) => {
+
+    await Transaction.find({}).lean()
+      .sort({ date: 'desc' })
+      .then(transactions => {
+        res.render('./clients/viewTransact',
+          {
+            transactions: transactions,
+          });
+        console.log(transactions);
+      });
+  });
+
+  // delete transaction
+  app.post('/clients/viewTransact', async (req, res) => {
+    //res.send('Delete');
+    console.log(req.body);
+    await Transaction.deleteOne({
+      _id: req.body.id
+    })
+      .then(() => {
+        //req.flash('successMsg', 'Transaction Deleted');
+        res.redirect('viewTransact');
+      });
+  });
+
+  //addClient page
+  app.get('/clients/addClient', (req, res) => {
+    res.render('./clients/addClient');
+  });
+  //working with posted information from 
+  //add clients page
+  app.post('/clients', async (req, res) => {
+    const newClient =
+    {
+      //in here goes the information
+      //recieved from the addclients page.
+
+      fname: req.body.fname,
+      lname: req.body.lname,
+      city: req.body.city,
+      state: req.body.state,
+      address: req.body.state,
+      phoneNumber: req.body.phoneNumber,
+      descript: req.body.descript
+
+    }
+    await new Client(newClient)
+      .save()
+      .then(client => {
+        res.redirect('./clients/viewClient');
+      });
+
+    console.log(req.body);
+  });
+
+  //completeTransact page
+  app.post('/clients/completeTransact', async (req, res) => {
+
+    const newTransact =
     {
       fname: req.body.fname,
       lname: req.body.lname,
-      phoneNumber: req.body.phoneNumber
-    });
-  console.log("body");
-  console.log(req.body);
-  console.log("params");
-  console.log(req.params);
+      phoneNumber: req.body.phoneNumber,
+      transactDate: req.body.transactDate,
+      transactCost: req.body.cost,
+      transactPrice: req.body.price,
+      transactTime: req.body.time,
+      descript: req.body.message,
+      transactName: req.body.transactName
+    }
 
-  //console.log(req.params.id);
-});
-
-//addTransact page
-app.get('/clients/addTransact', (req, res) => {
-  res.render('./clients/addTransact');
-});
-
-//viewTransact page
-app.get('/clients/viewTransact', async (req, res) => {
-
-  await Transaction.find({}).lean()
-    .sort({ date: 'desc' })
-    .then(transactions => {
-      res.render('./clients/viewTransact',
-        {
-          transactions: transactions,
-        });
-      console.log(transactions);
-    });
-});
-// delete transaction
-app.delete('/:dateEntered',async(req,res)=>{
-  //res.send('Delete');
-  await Transaction.deleteOne({
-    dateEntered:req.params.dateEntered
-  })
-  .then(()=>{
-    req.flash('successMsg','Transaction Deleted');
-    res.redirect('./clients/viewTransact');
+    await new Transaction(newTransact)
+      .save()
+      .then(transaction => {
+        res.redirect('/clients/viewTransact')
+      })
+    console.log(req.body);
   });
-});
-//addClient page
-app.get('/clients/addClient', (req, res) => {
-  res.render('./clients/addClient');
-});
-//working with posted information from 
-//add clients page
-app.post('/clients', async (req, res) => {
-  const newClient =
-  {
-    //in here goes the information
-    //recieved from the addclients page.
-
-    fname: req.body.fname,
-    lname: req.body.lname,
-    city: req.body.city,
-    state: req.body.state,
-    address: req.body.state,
-    phoneNumber: req.body.phoneNumber,
-    descript: req.body.descript
-
-  }
-  await new Client(newClient)
-    .save()
-    .then(client => {
-      res.redirect('./clients/viewClient');
-    });
-
-  console.log(req.body);
-});
-
-//completeTransact page
-app.post('/clients/completeTransact', async (req, res) => {
-
-  const newTransact =
-  {
-    fname: req.body.fname,
-    lname: req.body.lname,
-    phoneNumber: req.body.phoneNumber,
-    transactDate: req.body.transactDate,
-    transactCost: req.body.cost,
-    transactPrice: req.body.price,
-    transactTime: req.body.time,
-    descript: req.body.message,
-    transactName: req.body.transactName
-  }
-
-  await new Transaction(newTransact)
-    .save()
-    .then(transaction => {
-      res.redirect('/clients/viewTransact')
-    })
-  console.log(req.body);
-});
-
+}
+//end if show
+else{
+  app.get('/', (req, res) => {
+    res.render('DBerror.handlebars');
+  });
+}
 
 
 //capitalize first letter f(x)

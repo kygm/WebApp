@@ -34,7 +34,7 @@
       <th scope="col">Phone</th>
       <th scope="col">Cost</th>
       <th scope="col">Description</th>
-      <th scope="col"><button onclick=editFields({{phoneNumber}}{{transactDate}}{{transactName}}) class="btn btn-warning">Edit</button></th>
+      
     </tr>
   </thead>
     </tr>
@@ -44,7 +44,7 @@
       <td label="Cost"><input type="text" value="${{transactCost}}" class="form-control"name="Cost" readonly="true"></td>
       <td label="Description"><input value="{{descript}}" class="form-control"name="description" readonly="true"></textarea></td>
       <td class="disp"id="delete{{phoneNumber}}{{transactDate}}{{transactName}}"><form action="../clients/{{phoneNumber}}{{transactDate}}{{transactName}}?_method=DELETE"method="post">
-        <button class="btn btn-danger"type="submit"value="{{phoneNumber}}{{transactDate}}{{transactName}}">Delete</button>
+        <form method="deleteTransact" method="post"><button class="btn btn-danger" name="id" type="submit"value="{{_id}}">Delete</button></form>
       </form></td>
       <td class="hidden"id="enterEdit{{phoneNumber}}{{transactDate}}{{transactName}}">
         <button type="submit"value="{{phoneNumber}}{{transactDate}}{{transactName}}">Submit</button>

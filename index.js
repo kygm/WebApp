@@ -32,7 +32,7 @@ var show;
 const db = mongoose.connection;
 
 //console.log(db.error);
-db.on('error', () => { 
+db.on('error', () => {
   console.error.bind(console, 'connection error: ');
 }).then(show = 1);
 db.once('open', () => {
@@ -88,7 +88,7 @@ if (show == 2) {
         console.log(client);
       });
   });
-  
+
   //viewClient pages
   //get route
   app.get('/clients/viewClient', async (req, res) => {
@@ -102,19 +102,39 @@ if (show == 2) {
       });
   });
 
-  app.post('/clients/editClient', async(req, res) =>{
-    console.log(req.body);
+  app.post('/clients/editClient', async (req, res) => {
+    //console.log(req.body);
     //res.render('./clients/editClient');
 
-    await Client.find({ _id: req.body.id }).lean()
-    .then(client => {
-      res.render('./clients/editClient', 
-      {
-        clients: client
-      });
+    if (typeof (req.body.doEdit) == "string") {
+      console.log(req.body);
+      await Client.findOne({ _id: req.body.id })
+        .then(clients => {
+          clients.fname = req.body.fname,
+            clients.lname = req.body.lname,
+            clients.state = req.body.state,
+            clients.address = req.body.address,
+            clients.phoneNumber = req.body.phoneNumber,
+            clients.city = req.body.city,
+            clients.descript = req.body.descript
 
-    });
-    
+          clients.save()
+            .then(client => {
+              res.redirect('./clients/viewClient');
+            });
+        });
+    }
+    else {
+      await Client.find({ _id: req.body.id }).lean()
+        .then(client => {
+          res.render('./clients/editClient',
+            {
+              clients: client
+            });
+
+        });
+    }
+
     //res.redirect('viewClient');
   });
   //post route, phone number to search client
@@ -220,7 +240,7 @@ if (show == 2) {
   });
 }
 //end if show
-else{
+else {
   app.get('/', (req, res) => {
     res.render('DBerror.handlebars');
   });

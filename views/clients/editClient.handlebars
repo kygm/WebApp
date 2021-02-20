@@ -1,0 +1,99 @@
+{{#each clients}}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col" colspan='2'><center>Options</center></th>
+    </tr>
+  </thead>
+  <tbody>
+    <form method="post" action="addTransact">
+    <tr>
+      <td label="First Name"><input type="text" value="{{fname}}" class="form-control"name="fname"></td>
+      <td label="Last Name"><input type="text" value="{{lname}}" class="form-control"name="lname"></td>
+      <td label="Phone Number"><input type="text" value="{{phoneNumber}}" class="form-control"name="phoneNumber"></td>
+      <td>         
+          <form action="viewClient" method="post"></form><input id="sub2" type="submit" value="Complete Edit" class='btn btn-success' /></form>
+      </td>  
+    </tr>
+    
+  {{else}}
+    <h1>No Results Found</h1>
+    <a href="viewClient"><h3>View all Clients</h3></a>
+  {{/each}}
+  </tbody>
+</table>
+<script>
+  /*
+
+  KENNY PLEASE GET THIS TO WORK 
+  WITH SEARCH BAR OUT OF MAIN TABLE
+  also make the f(x) exec with a btn,
+  remove onkeyup
+
+  function search(){
+    var input=document.getElementById('searchbar').value.toLowerCase();
+    for(int i=0;i<clients:i++){
+      if({{fname}}==input){
+        
+      }
+    }
+  }
+  */
+</script>
+<style>
+.header{
+  text-align: center;
+}
+/*Mobile View*/
+@media  only screen and (min-width: 0px)  {
+  .form-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  td, tr :not(form) { display: block; }
+  
+  /* Hide table headers (but not display: none;, for accessibility) */
+
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  
+  tr { border: 1px solid rgb(119, 118, 175); }
+  
+  tr + tr { margin-top: 1.5em; }
+  
+  td {
+    /* make like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+    text-align: left;
+  }
+  
+  td:before {
+    content: attr(label);
+    display: inline-block;
+    line-height: 1.5;
+    width: 100%;
+    white-space: nowrap;
+  }
+  #sub{
+      display: block;
+      width: 100%;
+    }
+  #sub2{
+    display: block;
+    width: 100%;
+  }
+  #btn, #searchbar
+  {
+    vertical-align: middle;
+  }
+  }
+</style>

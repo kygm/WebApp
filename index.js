@@ -73,6 +73,7 @@ if (show == 2) {
     CLOUD BASED MONGO DB
   */
 
+  //search by fname route
   app.post('/clients/viewClient', async (req, res) => {
     var search = req.body.search;
     search = capFL(search);
@@ -87,11 +88,10 @@ if (show == 2) {
         console.log(client);
       });
   });
+  
   //viewClient pages
   //get route
   app.get('/clients/viewClient', async (req, res) => {
-
-
     await Client.find({}).lean()
       .sort({ date: 'desc' })
       .then(clients => {
@@ -100,7 +100,22 @@ if (show == 2) {
             clients: clients
           });
       });
+  });
 
+  app.post('/clients/editClient', async(req, res) =>{
+    console.log(req.body);
+    //res.render('./clients/editClient');
+
+    await Client.find({ _id: req.body.id }).lean()
+    .then(client => {
+      res.render('./clients/editClient', 
+      {
+        clients: client
+      });
+
+    });
+    
+    //res.redirect('viewClient');
   });
   //post route, phone number to search client
   app.post('/clients/addTransact', (req, res) => {

@@ -31,10 +31,11 @@
       <td label="Last Name"><input type="text" value="{{lname}}" class="form-control"name="lname" readonly="true"></td>
       <td label="Phone Number"><input type="text" value="{{phoneNumber}}" class="form-control"name="phoneNumber" readonly="true"></td>
       <td>         
-          <input id="sub" type='submit' value="New Transaction" class='btn btn-secondary' />
+          <input id="sub" type='submit' value="New Transaction" class='btn btn-secondary' /></form>    
+          <form action="editClient" method="post"><input id="sub2" type="submit" value="Edit Client" class='btn btn-success' /><input name="id" hidden="true" value="{{_id}}" /></form>
       </td>  
     </tr>
-    </form>
+    
   {{else}}
     <h1>No Results Found</h1>
     <a href="viewClient"><h3>View all Clients</h3></a>
@@ -103,6 +104,10 @@
       display: block;
       width: 100%;
     }
+  #sub2{
+    display: block;
+    width: 100%;
+  }
   #btn, #searchbar
   {
     vertical-align: middle;

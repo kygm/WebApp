@@ -39,7 +39,7 @@ db.once('open', () => {
   console.log('MongoDB Connected');
 }).then(show = 2);
 
-console.log(show);
+console.log("DB Status: " + show);
 
 if (show == 2) {
   //load clients model
@@ -103,39 +103,44 @@ if (show == 2) {
   });
 
   app.post('/clients/editClient', async (req, res) => {
-    //console.log(req.body);
+    console.log("In edit client...")
+    console.log(req.body);
     //res.render('./clients/editClient');
 
-    if (typeof (req.body.doEdit) == "string") {
-      console.log(req.body);
-      await Client.findOne({ _id: req.body.id })
-        .then(clients => {
-          clients.fname = req.body.fname,
-            clients.lname = req.body.lname,
-            clients.state = req.body.state,
-            clients.address = req.body.address,
-            clients.phoneNumber = req.body.phoneNumber,
-            clients.city = req.body.city,
-            clients.descript = req.body.descript
+    //currently, error is that req.body.fname is null, although req.body shows that its filled.
+    //typeof operator returns primitive type of object being sent in.
 
-          clients.save()
-            .then(client => {
-              res.redirect('./clients/viewClient');
-            });
-        });
-    }
-    else {
-      await Client.find({ _id: req.body.id }).lean()
-        .then(client => {
-          res.render('./clients/editClient',
-            {
-              clients: client
-            });
+    await Client.find({ _id: req.body.id }).lean()
+      .then(client => {
+        res.render('./clients/editClient',
+          {
+            clients: client
+          });
 
-        });
-    }
+      });
+
 
     //res.redirect('viewClient');
+  });
+
+  //complete edit page
+  app.post('/clients/completeCEdit', async (req, res) => {
+    console.log("Completing edit...");
+    console.log(req.body);
+    await Client.updateOne({ _id: req.body.id }
+      , {
+
+        fname: req.body.fname,
+        lname: req.body.lname,
+        state: req.body.state,
+        address: req.body.address,
+        phoneNumber: req.body.phoneNumber,
+        city: req.body.city,
+        descript: req.body.descript
+      }, { upsert: true }
+    );
+    res.redirect('viewClient');
+
   });
   //post route, phone number to search client
   app.post('/clients/addTransact', (req, res) => {

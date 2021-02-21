@@ -14,8 +14,9 @@
     </tr>
   </thead>
   <tbody>
-    <form method="post" action="editClient">
+    <form method="post" action="completeCEdit">
     <tr>
+      <input hidden="true" name="id" value="{{_id}}" />
       <td label="First Name"><input type="text" value="{{fname}}" class="form-control" name="fname"></td>
       <td label="Last Name"><input type="text" value="{{lname}}" class="form-control" name="lname"></td>
       <td label="Phone Number"><input type="text" value="{{phoneNumber}}" class="form-control" name="phoneNumber"></td>

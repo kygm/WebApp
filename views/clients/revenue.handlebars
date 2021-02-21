@@ -1,0 +1,79 @@
+<h3>Revenue Page</h3>
+  <!-- 
+    The form is set as hidden. This feature has not been
+    implemented yet. It requires a route to the the 
+    revenue.handlebars page using POST. The query should
+    return every document that has a transaction date 
+    within the year specified in the form (name: year)
+  -->
+  <form hidden="true" action="revenue" method="post">
+    <input name="year" type="number" placeholder="2020" />
+    <input type="submit" value="View Revenue" class="btn btn-success" />
+    <br/>
+  </form>
+
+
+  <p id="rev">This is the total revenue so far:</p>
+
+
+<input class="btn btn-primary btn-block" type="button" id="calcRev" value="Click to Display Revenue" onClick="calculateRevenue()" />
+
+<script>
+  //declaring a global list to hold prices
+  //and another to hold costs
+  var priceList = new Array();
+  var costList = new Array();
+
+</script>
+
+  {{#each transacts}}
+
+
+  <script>
+    priceList.push({{ transactPrice }});
+    costList.push({{ transactCost }});
+  </script>
+
+  <script>
+
+    function calculateRevenue() {
+      //vars for holding revenue, costs, prices
+      var totalRevenue = 0;
+      var totalCosts = 0;
+      var totalPrices = 0;
+      //foreaches to calc totals
+      priceList.forEach(
+        price => totalPrices += price
+      );
+      costList.forEach(
+        cost => totalCosts += cost
+      );
+      //logging info
+      console.log("First prices, then costs");
+      console.log(totalPrices);
+      console.log(totalCosts);
+
+      totalRevenue = totalPrices - totalCosts;
+      console.log("Total Revenue: " + totalRevenue);
+
+      //creating h3 element to show store revenue
+      var h3 = document.createElement("h3");
+      
+      var strRevenue = "$" + totalRevenue;
+      //appending revenue to h3 element
+      h3.appendChild(document.createTextNode(strRevenue));
+      document.getElementById("rev").appendChild(h3);
+
+      //eliminating button to prevent ambiguous instances
+      //of this h3 in the document
+      let btn = document.getElementById("calcRev");
+      btn.parentNode.removeChild(btn);
+
+      let inp = document.createElement("input");
+
+    }
+
+  </script>
+  {{else}}
+  <h3>No transacts avalilable</h3>
+  {{/each}}

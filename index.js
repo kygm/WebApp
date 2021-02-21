@@ -8,6 +8,14 @@ const { removeAllListeners } = require('nodemon');
 //port declaration
 const PORT = 1500;
 
+
+//todays date
+var todaysDate = new Date();
+var dd = String(todaysDate.getDate()).padStart(2, '0');
+var mm = String(todaysDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = todaysDate.getFullYear();
+
+
 //handlebars
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
@@ -56,13 +64,32 @@ if (show == 2) {
   //ROUTES
   //index page
   app.get('/', (req, res) => {
-    const theTitle = 'Welcome Back!';
+
+    todaysDate = mm + '/' + dd + '/' + yyyy;
     res.render('index',
       {
-        title: theTitle
+        title: todaysDate
       });
   });
 
+  app.post('/clients/revenue', async(req,res) =>{
+    await Transaction.find({})
+  });
+  app.get('/clients/revenue', async (req, res) => {
+    //aggregate f(x) to view total revenue
+    //based on a certain year inputted
+    await Transaction.find({}).lean()
+      .sort({ date: 'desc' })
+      .then(transactions => {
+        res.render('./clients/revenue',
+          {
+            transacts: transactions,
+          });
+        console.log(transactions);
+      });//end await
+
+    //res.render('./clients/revenue');
+  });
   //about page GET
   app.get('/about', (req, res) => {
     res.render('about');
@@ -157,6 +184,17 @@ if (show == 2) {
 
     //console.log(req.params.id);
   });
+
+  app.post('/clients/deleteClient', async (req, res) => {
+
+    console.log("Deleting client...");
+    console.log(req.body);
+    await Client.deleteOne({ _id: req.body.id })
+      .then(() => {
+        res.redirect("viewClient");
+      });
+  });
+
 
   //addTransact page
   app.get('/clients/addTransact', (req, res) => {

@@ -1,8 +1,8 @@
 <div class="header">
   <h3>Edit Client</h3>
-    <a href="./viewClient"><input id="btn" name="btn" value="View all Clients" class='btn btn-primary' /></a>
+  <a href="./viewClient"><input id="btn" name="btn" value="View all Clients" class='btn btn-primary' /></a>
 </div>
-<br/>
+<br />
 {{#each clients}}
 <table class="table">
   <thead>
@@ -10,100 +10,128 @@
       <th scope="col">First Name</th>
       <th scope="col">Last Name</th>
       <th scope="col">Phone Number</th>
-      <th scope="col" colspan='2'><center>Options</center></th>
+      <th scope="col" colspan='2'>
+        <center>Options</center>
+      </th>
     </tr>
   </thead>
   <tbody>
     <form method="post" action="completeCEdit">
-    <tr>
-      <input hidden="true" name="id" value="{{_id}}" />
-      <td label="First Name"><input type="text" value="{{fname}}" class="form-control" name="fname"></td>
-      <td label="Last Name"><input type="text" value="{{lname}}" class="form-control" name="lname"></td>
-      <td label="Phone Number"><input type="text" value="{{phoneNumber}}" class="form-control" name="phoneNumber"></td>
-      <td label="City"><input type="text" value="{{city}}" class="form-control" name="city"></td>
-      <td label="State"><input type="text" value="{{state}}" class="form-control" name="state"></td>
-      <td label="Address"><input type="text" value="{{address}}" class="form-control" name="address"></td>
-      <td label="Description"><input type="text" value="{{descript}}" class="form-control" name="descript"></td>
-      <td>         
-          <input id="sub2" name="doEdit" type="submit" value="Complete Edit" class='btn btn-success' /></form>
-      </td>  
+      <tr>
+        <input hidden="true" name="id" value="{{_id}}" />
+        <td label="First Name"><input type="text" value="{{fname}}" class="form-control" name="fname"></td>
+        <td label="Last Name"><input type="text" value="{{lname}}" class="form-control" name="lname"></td>
+        <td label="Phone Number"><input type="text" value="{{phoneNumber}}" class="form-control" name="phoneNumber">
+        </td>
+        <td label="City"><input type="text" value="{{city}}" class="form-control" name="city"></td>
+        <td label="State"><input type="text" value="{{state}}" class="form-control" name="state"></td>
+        <td label="Address"><input type="text" value="{{address}}" class="form-control" name="address"></td>
+        <td label="Description"><input type="text" placeholder="{{descript}}" value="{{descript}}" class="form-control"
+            name="descript"></textarea></td>
+        <td>
+          <input id="sub2" name="doEdit" type="submit" value="Complete Edit" class='btn btn-success' />
+    </form>
+    </td>
+    <td>
+      <form action="deleteClient" id="deleteForm" method="post">
+        <input hidden="true" value="{{_id}}" name="id" />
+        <input onClick="deleteHandler()" value="Delete Client" class='btn btn-danger' />
+      </form>
+    </td>
     </tr>
-    
-  {{else}}
+
+    {{else}}
     <h1>No Results Found</h1>
-    <a href="viewClient"><h3>View all Clients</h3></a>
-  {{/each}}
+    <h3>Hit view all clients to go back</h3>>
+    <h3>View all Clients</h3>
+    </a>
+    {{/each}}
   </tbody>
 </table>
 <script>
-  /*
+  //this script shows a warning message 
+  //if delete button is clicked
 
-  KENNY PLEASE GET THIS TO WORK 
-  WITH SEARCH BAR OUT OF MAIN TABLE
-  also make the f(x) exec with a btn,
-  remove onkeyup
+  function deleteHandler() {
+    res = window.confirm("Confirm to delete client");
+    let form = document.getElementById("deleteForm");
+    console.log(res);
 
-  function search(){
-    var input=document.getElementById('searchbar').value.toLowerCase();
-    for(int i=0;i<clients:i++){
-      if({{fname}}==input){
-        
-      }
+    if (res) {
+      form.submit();
     }
+    else {
+      window.alert("Delete Cancelled");
+      console.log("Delete Cancelled");
+    }
+
+
   }
-  */
+
 </script>
 <style>
-.header{
-  text-align: center;
-}
-/*Mobile View*/
-@media  only screen and (min-width: 0px)  {
-  .form-inline {
-    flex-direction: column;
-    align-items: stretch;
+  .header {
+    text-align: center;
   }
-  td, tr :not(form) { display: block; }
-  
-  /* Hide table headers (but not display: none;, for accessibility) */
 
-  thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-  
-  tr { border: 1px solid rgb(119, 118, 175); }
-  
-  tr + tr { margin-top: 1.5em; }
-  
-  td {
-    /* make like a "row" */
-    border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 50%;
-    text-align: left;
-  }
-  
-  td:before {
-    content: attr(label);
-    display: inline-block;
-    line-height: 1.5;
-    width: 100%;
-    white-space: nowrap;
-  }
-  #sub{
+  /*Mobile View*/
+  @media only screen and (min-width: 0px) {
+    .form-inline {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    td,
+    tr :not(form) {
+      display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    tr {
+      border: 1px solid rgb(119, 118, 175);
+    }
+
+    tr+tr {
+      margin-top: 1.5em;
+    }
+
+    td {
+      /* make like a "row" */
+      border: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      padding-left: 50%;
+      text-align: left;
+    }
+
+    td:before {
+      content: attr(label);
+      display: inline-block;
+      line-height: 1.5;
+      width: 100%;
+      white-space: nowrap;
+    }
+
+    #sub {
       display: block;
       width: 100%;
     }
-  #sub2{
-    display: block;
-    width: 100%;
-  }
-  #btn, #searchbar
-  {
-    vertical-align: middle;
-  }
+
+    #sub2 {
+      display: block;
+      width: 100%;
+    }
+
+    #btn,
+    #searchbar {
+      vertical-align: middle;
+    }
   }
 </style>

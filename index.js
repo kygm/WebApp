@@ -110,6 +110,7 @@ if (show == 2) {
   app.get('/', (req, res) => {
 
     if (req.cookies.authorized) {
+      //res.clearCookie("authorized");
       console.log(req.cookies);
       todaysDate = mm + '/' + dd + '/' + yyyy;
       res.render('index',
@@ -128,23 +129,21 @@ if (show == 2) {
     res.redirect('/');
   });
   app.get('/clients/revenue', async (req, res) => {
-    if(req.cookies.authorized)
-    {
-    //aggregate f(x) to view total revenue
-    //based on a certain year inputted
-    await Transaction.find({}).lean()
-      .sort({ date: 'desc' })
-      .then(transactions => {
-        res.render('./clients/revenue',
-          {
-            transacts: transactions,
-          });
-        console.log(transactions);
-      });//end await
+    if (req.cookies.authorized) {
+      //aggregate f(x) to view total revenue
+      //based on a certain year inputted
+      await Transaction.find({}).lean()
+        .sort({ date: 'desc' })
+        .then(transactions => {
+          res.render('./clients/revenue',
+            {
+              transacts: transactions,
+            });
+          console.log(transactions);
+        });//end await
     }
-    else
-    {
-      res.redirect('./clients/login');
+    else {
+      res.redirect('/');
     }
 
     //res.render('./clients/revenue');
@@ -161,69 +160,63 @@ if (show == 2) {
 
   //search by fname route
   app.post('/clients/viewClient', async (req, res) => {
-    if(req.cookies.authorized)
-    {
-    var search = req.body.search;
-    search = capFL(search);
-    console.log("query = " + search);
+    if (req.cookies.authorized) {
+      var search = req.body.search;
+      search = capFL(search);
+      console.log("query = " + search);
 
-    await Client.find({ fname: search }).lean()
-      .then(client => {
-        res.render('./clients/viewClient',
-          {
-            clients: client
-          });
-        console.log(client);
-      });
+      await Client.find({ fname: search }).lean()
+        .then(client => {
+          res.render('./clients/viewClient',
+            {
+              clients: client
+            });
+          console.log(client);
+        });
     }
-    else
-    {
-      res.redirect('./clients/login');
+    else {
+      res.redirect('/');
     }
   });
 
   //viewClient pages
   //get route
   app.get('/clients/viewClient', async (req, res) => {
-    if(req.cookies.authorized)
-    {
-    await Client.find({}).lean()
-      .sort({ date: 'desc' })
-      .then(clients => {
-        res.render('./clients/viewClient',
-          {
-            clients: clients
-          });
-      });
+    if (req.cookies.authorized) {
+      await Client.find({}).lean()
+        .sort({ date: 'desc' })
+        .then(clients => {
+          res.render('./clients/viewClient',
+            {
+              clients: clients
+            });
+        });
     }
-    else
-    {
-      res.redirect('./clients/login');
+    else {
+      res.redirect('/');
     }
   });
 
   app.post('/clients/editClient', async (req, res) => {
-    if(req.cookies.authorized)
-    {
-    console.log("In edit client...")
-    console.log(req.body);
-    //res.render('./clients/editClient');
+    if (req.cookies.authorized) {
+      console.log("In edit client...")
+      console.log(req.body);
+      //res.render('./clients/editClient');
 
-    //currently, error is that req.body.fname is null, although req.body shows that its filled.
-    //typeof operator returns primitive type of object being sent in.
+      //currently, error is that req.body.fname is null, although req.body shows that its filled.
+      //typeof operator returns primitive type of object being sent in.
 
-    await Client.find({ _id: req.body.id }).lean()
-      .then(client => {
-        res.render('./clients/editClient',
-          {
-            clients: client
-          });
+      await Client.find({ _id: req.body.id }).lean()
+        .then(client => {
+          res.render('./clients/editClient',
+            {
+              clients: client
+            });
 
-      });
+        });
     }
-    else
-    {
-      res.redirect('./clients/login');
+    else {
+      res.redirect('/');
     }
 
 
@@ -232,66 +225,60 @@ if (show == 2) {
 
   //complete edit page
   app.post('/clients/completeCEdit', async (req, res) => {
-    if(req.cookies.authorized)
-    {
-    console.log("Completing edit...");
-    console.log(req.body);
-    await Client.updateOne({ _id: req.body.id }
-      , {
+    if (req.cookies.authorized) {
+      console.log("Completing edit...");
+      console.log(req.body);
+      await Client.updateOne({ _id: req.body.id }
+        , {
 
-        fname: req.body.fname,
-        lname: req.body.lname,
-        state: req.body.state,
-        address: req.body.address,
-        phoneNumber: req.body.phoneNumber,
-        city: req.body.city,
-        descript: req.body.descript
-      }, { upsert: true }
-    );
-    res.redirect('viewClient');
+          fname: req.body.fname,
+          lname: req.body.lname,
+          state: req.body.state,
+          address: req.body.address,
+          phoneNumber: req.body.phoneNumber,
+          city: req.body.city,
+          descript: req.body.descript
+        }, { upsert: true }
+      );
+      res.redirect('viewClient');
     }
-    else
-    {
-      res.redirect('./clients/login');
+    else {
+      res.redirect('/');
     }
 
   });
   //post route, phone number to search client
   app.post('/clients/addTransact', (req, res) => {
-    if(req.cookies.authorized)
-    {
-    res.render('./clients/addTransact',
-      {
-        fname: req.body.fname,
-        lname: req.body.lname,
-        phoneNumber: req.body.phoneNumber
-      });
-    console.log("body");
-    console.log(req.body);
-    console.log("params");
-    console.log(req.params);
+    if (req.cookies.authorized) {
+      res.render('./clients/addTransact',
+        {
+          fname: req.body.fname,
+          lname: req.body.lname,
+          phoneNumber: req.body.phoneNumber
+        });
+      console.log("body");
+      console.log(req.body);
+      console.log("params");
+      console.log(req.params);
 
     }
-    else
-    {
-      res.redirect('./clients/login');
+    else {
+      res.redirect('/');
     }
     //console.log(req.params.id);
   });
 
   app.post('/clients/deleteClient', async (req, res) => {
-    if(req.cookies.authorized)
-    {
-    console.log("Deleting client...");
-    console.log(req.body);
-    await Client.deleteOne({ _id: req.body.id })
-      .then(() => {
-        res.redirect("viewClient");
-      });
+    if (req.cookies.authorized) {
+      console.log("Deleting client...");
+      console.log(req.body);
+      await Client.deleteOne({ _id: req.body.id })
+        .then(() => {
+          res.redirect("viewClient");
+        });
     }
-    else
-    {
-      res.redirect('./clients/login');
+    else {
+      res.redirect('/');
     }
   });
 
@@ -303,108 +290,105 @@ if (show == 2) {
 
   //viewTransact page
   app.get('/clients/viewTransact', async (req, res) => {
-    if(req.cookies.authorized)
-    {
-    await Transaction.find({}).lean()
-      .sort({ date: 'desc' })
-      .then(transactions => {
-        res.render('./clients/viewTransact',
-          {
-            transactions: transactions,
-          });
-        console.log(transactions);
-      });
+    if (req.cookies.authorized) {
+      await Transaction.find({}).lean()
+        .sort({ date: 'desc' })
+        .then(transactions => {
+          res.render('./clients/viewTransact',
+            {
+              transactions: transactions,
+            });
+          console.log(transactions);
+        });
     }
-    else
-    {
-      res.redirect('./clients/login');
+    else {
+      res.redirect('/');
     }
   });
 
   // delete transaction
   app.post('/clients/viewTransact', async (req, res) => {
-    if(req.cookies.authorized)
-    {
-    //res.send('Delete');
-    console.log(req.body);
-    await Transaction.deleteOne({
-      _id: req.body.id
-    })
-      .then(() => {
-        //req.flash('successMsg', 'Transaction Deleted');
-        res.redirect('viewTransact');
-      });
+    if (req.cookies.authorized) {
+      //res.send('Delete');
+      console.log(req.body);
+      await Transaction.deleteOne({
+        _id: req.body.id
+      })
+        .then(() => {
+          //req.flash('successMsg', 'Transaction Deleted');
+          res.redirect('viewTransact');
+        });
     }
-    else
-    {
-      res.redirect('./clients/login');
+    else {
+      res.redirect('/');
     }
   });
 
   //addClient page
   app.get('/clients/addClient', (req, res) => {
-    res.render('./clients/addClient');
+    if (req.cookies.authorized) {
+      res.render('./clients/addClient');
+    }
+    else {
+      res.redirect('/');
+    }
   });
   //working with posted information from 
   //add clients page
   app.post('/clients', async (req, res) => {
-    if(req.cookies.authorized)
-    {
-    const newClient =
-    {
-      //in here goes the information
-      //recieved from the addclients page.
+    if (req.cookies.authorized) {
+      const newClient =
+      {
+        //in here goes the information
+        //recieved from the addclients page.
 
-      fname: req.body.fname,
-      lname: req.body.lname,
-      city: req.body.city,
-      state: req.body.state,
-      address: req.body.state,
-      phoneNumber: req.body.phoneNumber,
-      descript: req.body.descript
+        fname: req.body.fname,
+        lname: req.body.lname,
+        city: req.body.city,
+        state: req.body.state,
+        address: req.body.state,
+        phoneNumber: req.body.phoneNumber,
+        descript: req.body.descript
 
+      }
+      await new Client(newClient)
+        .save()
+        .then(client => {
+          res.redirect('./clients/viewClient');
+        });
+
+      console.log(req.body);
     }
-    await new Client(newClient)
-      .save()
-      .then(client => {
-        res.redirect('./clients/viewClient');
-      });
-
-    console.log(req.body);
-    }
-    else
-    {
-      res.redirect('./clients/login');
+    else {
+      res.redirect('/');
     }
   });
 
   //completeTransact page
   app.post('/clients/completeTransact', async (req, res) => {
-    if(req.cookies.authorized)
-    {
-    const newTransact =
-    {
-      fname: req.body.fname,
-      lname: req.body.lname,
-      phoneNumber: req.body.phoneNumber,
-      transactDate: req.body.transactDate,
-      transactCost: req.body.cost,
-      transactPrice: req.body.price,
-      transactTime: req.body.time,
-      descript: req.body.message,
-      transactName: req.body.transactName
-    }
+    if (req.cookies.authorized) {
+      const newTransact =
+      {
+        fname: req.body.fname,
+        lname: req.body.lname,
+        phoneNumber: req.body.phoneNumber,
+        transactDate: req.body.transactDate,
+        transactCost: req.body.cost,
+        transactPrice: req.body.price,
+        transactTime: req.body.time,
+        descript: req.body.message,
+        transactName: req.body.transactName
+      }
 
-    await new Transaction(newTransact)
-      .save()
-      .then(transaction => {
-        res.redirect('/clients/viewTransact')
-      })
-    console.log(req.body);
+      await new Transaction(newTransact)
+        .save()
+        .then(transaction => {
+          res.redirect('/clients/viewTransact')
+        })
+      console.log(req.body);
     }
-    else
-    {
-      res.redirect('./clients/login');
+    else {
+      res.redirect('/');
     }
   });
 }

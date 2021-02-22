@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const { removeAllListeners } = require('nodemon');
 const cookieParser = require('cookie-parser');
 //port declaration
-const PORT = 1500;
+const PORT = process.env.PORT || 1500;
 
 //authorization var
 var authorized;

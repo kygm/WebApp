@@ -58,10 +58,17 @@ if (show == 2) {
   require('./models/Transaction');
   const Transaction = mongoose.model('Transactions');
 
+  //load user model
+  require('./models/User');
+  const User = mongoose.model('Users');
   //must load transact and document models
   //afterwards
 
   //ROUTES
+
+  app.get('/clients/login', async(req, res) =>{
+    res.render('./clients/login');
+  });
   //index page
   app.get('/', (req, res) => {
 
@@ -73,7 +80,9 @@ if (show == 2) {
   });
 
   app.post('/clients/revenue', async(req,res) =>{
-    await Transaction.find({})
+    //currently inactive route. Will redirect to 
+    //index page.
+    res.redirect('/');
   });
   app.get('/clients/revenue', async (req, res) => {
     //aggregate f(x) to view total revenue

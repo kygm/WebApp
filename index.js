@@ -5,9 +5,12 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const { removeAllListeners } = require('nodemon');
+const cookieParser = require('cookie-parser');
 //port declaration
 const PORT = 1500;
 
+//authorization var
+var authorized;
 
 //todays date
 var todaysDate = new Date();
@@ -23,6 +26,18 @@ app.set('view engine', 'handlebars');
 //body parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+//cookie parser
+app.use(cookieParser());
+
+//to add cookie:
+//res.cookie("strCookieName", cookieVar);
+
+//to retrieve cookie:
+//req.cookies.strCookieName;
+
+//to clear cookie:
+//res.clearCookie("strCookieName");
+
 var show = 0;
 
 //mongodb database setup
@@ -65,26 +80,56 @@ if (show == 2) {
   //afterwards
 
   //ROUTES
-
-  app.get('/clients/login', async(req, res) =>{
+  //async not needed as no data is being pulled
+  app.get('/clients/login', (req, res) => {
     res.render('./clients/login');
+  });
+
+  app.post('/clients/login', async (req, res) => {
+    User.findOne({
+      username: req.body.username,
+      password: req.body.password
+    }).lean()
+      .then(user => {
+        if (user) {
+          console.log("user found");
+          res.cookie("authorized", true);
+          res.redirect('/');
+
+        }
+        else {
+          console.log("no user found");
+          res.redirect('login');
+        }
+
+
+      }
+      )
   });
   //index page
   app.get('/', (req, res) => {
 
-    todaysDate = mm + '/' + dd + '/' + yyyy;
-    res.render('index',
-      {
-        title: todaysDate
-      });
+    if (req.cookies.authorized) {
+      console.log(req.cookies);
+      todaysDate = mm + '/' + dd + '/' + yyyy;
+      res.render('index',
+        {
+          title: todaysDate
+        });
+    }
+    else {
+      res.redirect('./clients/login');
+    }
   });
 
-  app.post('/clients/revenue', async(req,res) =>{
+  app.post('/clients/revenue', async (req, res) => {
     //currently inactive route. Will redirect to 
     //index page.
     res.redirect('/');
   });
   app.get('/clients/revenue', async (req, res) => {
+    if(req.cookies.authorized)
+    {
     //aggregate f(x) to view total revenue
     //based on a certain year inputted
     await Transaction.find({}).lean()
@@ -96,6 +141,11 @@ if (show == 2) {
           });
         console.log(transactions);
       });//end await
+    }
+    else
+    {
+      res.redirect('./clients/login');
+    }
 
     //res.render('./clients/revenue');
   });
@@ -111,6 +161,8 @@ if (show == 2) {
 
   //search by fname route
   app.post('/clients/viewClient', async (req, res) => {
+    if(req.cookies.authorized)
+    {
     var search = req.body.search;
     search = capFL(search);
     console.log("query = " + search);
@@ -123,11 +175,18 @@ if (show == 2) {
           });
         console.log(client);
       });
+    }
+    else
+    {
+      res.redirect('./clients/login');
+    }
   });
 
   //viewClient pages
   //get route
   app.get('/clients/viewClient', async (req, res) => {
+    if(req.cookies.authorized)
+    {
     await Client.find({}).lean()
       .sort({ date: 'desc' })
       .then(clients => {
@@ -136,9 +195,16 @@ if (show == 2) {
             clients: clients
           });
       });
+    }
+    else
+    {
+      res.redirect('./clients/login');
+    }
   });
 
   app.post('/clients/editClient', async (req, res) => {
+    if(req.cookies.authorized)
+    {
     console.log("In edit client...")
     console.log(req.body);
     //res.render('./clients/editClient');
@@ -154,6 +220,11 @@ if (show == 2) {
           });
 
       });
+    }
+    else
+    {
+      res.redirect('./clients/login');
+    }
 
 
     //res.redirect('viewClient');
@@ -161,6 +232,8 @@ if (show == 2) {
 
   //complete edit page
   app.post('/clients/completeCEdit', async (req, res) => {
+    if(req.cookies.authorized)
+    {
     console.log("Completing edit...");
     console.log(req.body);
     await Client.updateOne({ _id: req.body.id }
@@ -176,10 +249,17 @@ if (show == 2) {
       }, { upsert: true }
     );
     res.redirect('viewClient');
+    }
+    else
+    {
+      res.redirect('./clients/login');
+    }
 
   });
   //post route, phone number to search client
   app.post('/clients/addTransact', (req, res) => {
+    if(req.cookies.authorized)
+    {
     res.render('./clients/addTransact',
       {
         fname: req.body.fname,
@@ -191,17 +271,28 @@ if (show == 2) {
     console.log("params");
     console.log(req.params);
 
+    }
+    else
+    {
+      res.redirect('./clients/login');
+    }
     //console.log(req.params.id);
   });
 
   app.post('/clients/deleteClient', async (req, res) => {
-
+    if(req.cookies.authorized)
+    {
     console.log("Deleting client...");
     console.log(req.body);
     await Client.deleteOne({ _id: req.body.id })
       .then(() => {
         res.redirect("viewClient");
       });
+    }
+    else
+    {
+      res.redirect('./clients/login');
+    }
   });
 
 
@@ -212,7 +303,8 @@ if (show == 2) {
 
   //viewTransact page
   app.get('/clients/viewTransact', async (req, res) => {
-
+    if(req.cookies.authorized)
+    {
     await Transaction.find({}).lean()
       .sort({ date: 'desc' })
       .then(transactions => {
@@ -222,10 +314,17 @@ if (show == 2) {
           });
         console.log(transactions);
       });
+    }
+    else
+    {
+      res.redirect('./clients/login');
+    }
   });
 
   // delete transaction
   app.post('/clients/viewTransact', async (req, res) => {
+    if(req.cookies.authorized)
+    {
     //res.send('Delete');
     console.log(req.body);
     await Transaction.deleteOne({
@@ -235,6 +334,11 @@ if (show == 2) {
         //req.flash('successMsg', 'Transaction Deleted');
         res.redirect('viewTransact');
       });
+    }
+    else
+    {
+      res.redirect('./clients/login');
+    }
   });
 
   //addClient page
@@ -244,6 +348,8 @@ if (show == 2) {
   //working with posted information from 
   //add clients page
   app.post('/clients', async (req, res) => {
+    if(req.cookies.authorized)
+    {
     const newClient =
     {
       //in here goes the information
@@ -265,11 +371,17 @@ if (show == 2) {
       });
 
     console.log(req.body);
+    }
+    else
+    {
+      res.redirect('./clients/login');
+    }
   });
 
   //completeTransact page
   app.post('/clients/completeTransact', async (req, res) => {
-
+    if(req.cookies.authorized)
+    {
     const newTransact =
     {
       fname: req.body.fname,
@@ -289,6 +401,11 @@ if (show == 2) {
         res.redirect('/clients/viewTransact')
       })
     console.log(req.body);
+    }
+    else
+    {
+      res.redirect('./clients/login');
+    }
   });
 }
 //end if show

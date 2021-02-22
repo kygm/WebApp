@@ -79,12 +79,26 @@ if (show == 2) {
   //must load transact and document models
   //afterwards
 
+
+
+
   //ROUTES
+
+  app.get('/clients/logout', (req, res) =>
+  {
+    res.clearCookie("authorized");
+
+    res.render('./clients/logout');
+
+  });
+
   //async not needed as no data is being pulled
+  //login page get route
   app.get('/clients/login', (req, res) => {
     res.render('./clients/login');
   });
 
+  //login page post route (auth user)
   app.post('/clients/login', async (req, res) => {
     User.findOne({
       username: req.body.username,
@@ -101,10 +115,7 @@ if (show == 2) {
           console.log("no user found");
           res.redirect('login');
         }
-
-
-      }
-      )
+      })
   });
   //index page
   app.get('/', (req, res) => {
@@ -346,7 +357,7 @@ if (show == 2) {
         lname: req.body.lname,
         city: req.body.city,
         state: req.body.state,
-        address: req.body.state,
+        address: req.body.address,
         phoneNumber: req.body.phoneNumber,
         descript: req.body.descript
 

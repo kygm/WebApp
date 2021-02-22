@@ -45,10 +45,10 @@
       <td label="Description"><input value="{{descript}}" class="form-control"name="description" readonly="true"></textarea></td>
       <td class="disp"id="delete{{phoneNumber}}{{transactDate}}{{transactName}}"><form action="../clients/{{phoneNumber}}{{transactDate}}{{transactName}}?_method=DELETE"method="post">
         <form method="deleteTransact" method="post"><button class="btn btn-danger" name="id" type="submit"value="{{_id}}">Delete</button></form>
-      </form></td>
+      {{!-- </form></td>
       <td class="hidden"id="enterEdit{{phoneNumber}}{{transactDate}}{{transactName}}">
         <button type="submit"value="{{phoneNumber}}{{transactDate}}{{transactName}}">Submit</button>
-      </td></form>
+      </td></form> --}}
     </tr>
   </tbody>
   {{else}}

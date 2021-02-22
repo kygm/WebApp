@@ -31,8 +31,8 @@
       <td label="Last Name"><input type="text" value="{{lname}}" class="form-control"name="lname" readonly="true"></td>
       <td label="Phone Number"><input type="text" value="{{phoneNumber}}" class="form-control"name="phoneNumber" readonly="true"></td>
       <td>         
-          <input id="sub" type='submit' value="New Transaction" class='btn btn-secondary' /></form>    
-          <form action="editClient" method="post"><input id="sub2" type="submit" value="Edit Client" class='btn btn-success' /><input name="id" hidden="true" value="{{_id}}" /></form>
+          <input id="sub" type='submit' value="New Transaction" class='btn btn-secondary btn-block' /></form>    
+          <form action="editClient" method="post"><button id="sub2" type="submit" class='btn btn-success btn-block' >Edit Client</button><input name="id" hidden="true" value="{{_id}}" /></form>
       </td>  
     </tr>
     

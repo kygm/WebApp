@@ -11,7 +11,7 @@
       <th scope="col">Last Name</th>
       <th scope="col">Phone Number</th>
       <th scope="col" colspan='2'>
-        <center>Options</center>
+        <center onload=select({{_id}}{{state}})>Options</center>
       </th>
     </tr>
   </thead>
@@ -24,8 +24,62 @@
         <td label="Phone Number"><input type="text" value="{{phoneNumber}}" class="form-control" name="phoneNumber">
         </td>
         <td label="City"><input type="text" value="{{city}}" class="form-control" name="city"></td>
-        <td label="State"><input type="text" value="{{state}}" class="form-control" name="state"></td>
-        <td label="Address"><input type="text" value="{{address}}" class="form-control" name="address"></td>
+        <td label="State: {{state}}"><select class="form-control col-auto"name="state">
+              <option value="AL"id="{{_id}}AL">Alabama</option>
+              <option value="AK"id="{{_id}}AK">Alaska</option>
+              <option value="AZ"id="{{_id}}AZ">Arizona</option>
+              <option value="AR"id="{{_id}}AR">Arkansas</option>
+              <option value="CA"id="{{_id}}CA">California</option>
+              <option value="CO"id="{{_id}}CO">Colorado</option>
+              <option value="CT"id="{{_id}}CT">Connecticut</option>
+              <option value="DE"id="{{_id}}DE">Delaware</option>
+              <option value="DC"id="{{_id}}DC">District Of Columbia</option>
+              <option value="FL"id="{{_id}}FL">Florida</option>
+              <option value="GA"id="{{_id}}GA">Georgia</option>
+              <option value="HI"id="{{_id}}HI">Hawaii</option>
+              <option value="ID"id="{{_id}}ID">Idaho</option>
+              <option value="IL"id="{{_id}}IL">Illinois</option>
+              <option value="IN"id="{{_id}}IN">Indiana</option>
+              <option value="IA"id="{{_id}}IA">Iowa</option>
+              <option value="KS"id="{{_id}}KS">Kansas</option>
+              <option value="KY"id="{{_id}}KY">Kentucky</option>
+              <option value="LA"id="{{_id}}LA">Louisiana</option>
+              <option value="ME"id="{{_id}}ME">Maine</option>
+              <option value="MD"id="{{_id}}MD">Maryland</option>
+              <option value="MA"id="{{_id}}MA">Massachusetts</option>
+              <option value="MI"id="{{_id}}MI">Michigan</option>
+              <option value="MN"id="{{_id}}MN">Minnesota</option>
+              <option value="MS"id="{{_id}}MS">Mississippi</option>
+              <option value="MO"id="{{_id}}MO">Missouri</option>
+              <option value="MT"id="{{_id}}MT">Montana</option>
+              <option value="NE"id="{{_id}}NE">Nebraska</option>
+              <option value="NV"id="{{_id}}NV">Nevada</option>
+              <option value="NH"id="{{_id}}NH">New Hampshire</option>
+              <option value="NJ"id="{{_id}}NJ">New Jersey</option>
+              <option value="NM"id="{{_id}}NM">New Mexico</option>
+              <option value="NY"id="{{_id}}NY">New York</option>
+              <option value="NC"id="{{_id}}NC">North Carolina</option>
+              <option value="ND"id="{{_id}}ND">North Dakota</option>
+              <option value="OH"id="{{_id}}OH">Ohio</option>
+              <option value="OK"id="{{_id}}OK">Oklahoma</option>
+              <option value="OR"id="{{_id}}OR">Oregon</option>
+              <option value="PA"id="{{_id}}PA">Pennsylvania</option>
+              <option value="RI"id="{{_id}}RI">Rhode Island</option>
+              <option value="SC"id="{{_id}}SC">South Carolina</option>
+              <option value="SD"id="{{_id}}SD">South Dakota</option>
+              <option value="TN"id="{{_id}}TN">Tennessee</option>
+              <option value="TX"id="{{_id}}TX">Texas</option>
+              <option value="UT"id="{{_id}}UT">Utah</option>
+              <option value="VT"id="{{_id}}VT">Vermont</option>
+              <option value="VA"id="{{_id}}VA">Virginia</option>
+              <option value="WA"id="{{_id}}WA">Washington</option>
+              <option value="WV"id="{{_id}}WV">West Virginia</option>
+              <option value="WI"id="{{_id}}WI">Wisconsin</option>
+              <option value="WY"id="{{_id}}WY">Wyoming</option>
+            </select>
+          </td>
+        <td label="Address">
+            <input type="text" value="{{address}}" class="form-control" name="address"></td>
         <td label="Description"><input type="text" placeholder="{{descript}}" value="{{descript}}" class="form-control"
             name="descript"></textarea></td>
         <td>
@@ -49,6 +103,10 @@
   </tbody>
 </table>
 <script>
+  //select handler
+/*function select(idState){
+  document.getElementById(idState).setAttribute(value="crap");
+}*/
   //this script shows a warning message 
   //if delete button is clicked
 

@@ -25,10 +25,10 @@
       <td label="Service Price"><input type="text" value="${{transactPrice}}" class="form-control" name="transactPrice" readonly="true">
       </td>
       <td><nav>
-        <button class="navbar-toggler btn-dark" type="button" data-toggle="collapse" data-target="#transDetails{{phoneNumber}}{{transactDate}}{{transactName}}" 
-        aria-controls="transDetails{{phoneNumber}}{{transactDate}}{{transactName}}" aria-expanded="false">View Details</button>
+        <button class="navbar-toggler btn-dark" type="button" data-toggle="collapse" data-target="#transDetails{{phoneNumber}}{{transactDate}}{{transactPrice}}" 
+        aria-controls="transDetails{{phoneNumber}}{{transactDate}}{{transactPrice}}" aria-expanded="false">View Details</button>
       </nav></td>
-    <thead id="transDetails{{phoneNumber}}{{transactDate}}{{transactName}}"class="collapse">
+    <thead id="transDetails{{phoneNumber}}{{transactDate}}{{transactPrice}}"class="collapse">
     <tr>
       <th scope="col">Time</th>
       <th scope="col">Phone</th>
@@ -38,12 +38,12 @@
     </tr>
   </thead>
     </tr>
-    <tr id="transDetails{{phoneNumber}}{{transactDate}}{{transactName}}"class="collapse">
+    <tr id="transDetails{{phoneNumber}}{{transactDate}}{{transactPrice}}"class="collapse">
       <td label="Time"><input type="text" value="{{transactTime}} Hours" class="form-control"name="Time" readonly='true'></td>
       <td label="Phone"><input type="text" value="{{phoneNumber}}" class="form-control"name="phone" readonly="true"></td>
       <td label="Cost"><input type="text" value="${{transactCost}}" class="form-control"name="Cost" readonly="true"></td>
       <td label="Description"><input value="{{descript}}" class="form-control"name="description" readonly="true"></textarea></td>
-      <td class="disp"id="delete{{phoneNumber}}{{transactDate}}{{transactName}}"><form action="../clients/{{phoneNumber}}{{transactDate}}{{transactName}}?_method=DELETE"method="post">
+      <td class="disp"id="delete{{phoneNumber}}{{transactDate}}{{transactPrice}}"><form action="../clients/{{phoneNumber}}{{transactDate}}{{transactPrice}}?_method=DELETE"method="post">
         <form method="deleteTransact" method="post"><button class="btn btn-danger" name="id" type="submit"value="{{_id}}">Delete</button></form>
       {{!-- </form></td>
       <td class="hidden"id="enterEdit{{phoneNumber}}{{transactDate}}{{transactName}}">

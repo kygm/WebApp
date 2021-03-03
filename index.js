@@ -84,10 +84,8 @@ if (show == 2) {
 
   //ROUTES
 
-  app.get('/clients/logout', (req, res) =>
-  {
+  app.get('/clients/logout', (req, res) => {
     res.clearCookie("authorized");
-
     res.render('./clients/logout');
 
   });
@@ -107,7 +105,10 @@ if (show == 2) {
       .then(user => {
         if (user) {
           console.log("user found");
-          res.cookie("authorized", true);
+          res.cookie("authorized", true, {
+            maxAge: 3600000, //setting cookie timeout at 1hr
+            httpOnly: true
+          });
           res.redirect('/');
 
         }

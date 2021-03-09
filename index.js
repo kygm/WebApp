@@ -303,6 +303,9 @@ if (show == 2) {
   //viewTransact page
   app.get('/clients/viewTransact', async (req, res) => {
     if (req.cookies.authorized) {
+      console.log(req.body);
+
+
       await Transaction.find({}).lean()
         .sort({ date: 'desc' })
         .then(transactions => {
@@ -310,7 +313,7 @@ if (show == 2) {
             {
               transactions: transactions,
             });
-          console.log(transactions);
+          //console.log(transactions);
         });
     }
     else {
@@ -321,15 +324,32 @@ if (show == 2) {
   // delete transaction
   app.post('/clients/viewTransact', async (req, res) => {
     if (req.cookies.authorized) {
-      //res.send('Delete');
-      console.log(req.body);
-      await Transaction.deleteOne({
-        _id: req.body.id
-      })
-        .then(() => {
-          //req.flash('successMsg', 'Transaction Deleted');
-          res.redirect('viewTransact');
-        });
+
+      if (req.body.fname) {
+        console.log(req.body.fname);
+        console.log('in the if');
+        var capFname = capFL(req.body.fname);
+        await Transaction.find({ fname: capFname }).lean()
+          .sort({ date: 'desc' })
+          .then(transactions => {
+            res.render('./clients/viewTransact',
+              {
+                transactions: transactions,
+              });
+              
+            //console.log(transactions);
+          });
+      }
+      else if(req.body.id) {
+        console.log('deleting transact!');
+        await Transaction.deleteOne({
+          _id: req.body.id
+        })
+          .then(() => {
+            //req.flash('successMsg', 'Transaction Deleted');
+            res.redirect('viewTransact');
+          });
+      }
     }
     else {
       res.redirect('/');
@@ -403,11 +423,21 @@ if (show == 2) {
       res.redirect('/');
     }
   });
+  //create 404 route
+  //must be at end of routes
+
+  app.get('*', (req, res) => {
+    res.status(404).send(
+      "404 Page Not Found! <a href='/'>Click to return to main</a><footer><p>Also, Epstien didn't kill himself!</p></footer>"
+    );
+  });
+
+
 }
 //end if show
 else {
   app.get('/', (req, res) => {
-    res.render('DBerror.handlebars');
+    res.render('noDb.handlebars');
   });
 }
 

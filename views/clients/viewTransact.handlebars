@@ -1,6 +1,13 @@
 <div>
   <h3>View Transactions</h3>
 </div>
+<div>
+  <form class="form-inline" method="post" action="viewTransact">
+    <input type="text" id="searchbar" placeholder="Search by First Name" class="form-control" name="fname">
+    <input type='submit' id="btn" name="btn" value="Search" class='btn btn-secondary' />
+  </form>
+  <br />
+</div>
 <table class="table table-dark">
   <thead>
     <tr>
@@ -15,77 +22,74 @@
   </thead>
   {{#each transactions}}
   <tbody>
-    <tr><form action=""method="post">
-      <td label="Date"><input type="text" value="{{transactDate}}" class="form-control" name="transactDate" readonly="true">
-      </td>
-      <td label="Name"><input type="text" value="{{fname}} {{lname}}" class="form-control" name="fname" readonly="true">
-      </td>
-      <td label="Service Name"><input type="text" value="{{transactName}}" class="form-control" name="lname" readonly="true">
-      </td>
-      <td label="Service Price"><input type="text" value="${{transactPrice}}" class="form-control" name="transactPrice" readonly="true">
-      </td>
-      <td><nav>
-        <button class="navbar-toggler btn-dark" type="button" data-toggle="collapse" data-target="#transDetails{{phoneNumber}}{{transactDate}}{{transactPrice}}" 
-        aria-controls="transDetails{{phoneNumber}}{{transactDate}}{{transactPrice}}" aria-expanded="false">View Details</button>
-      </nav></td>
-    <thead id="transDetails{{phoneNumber}}{{transactDate}}{{transactPrice}}"class="collapse">
     <tr>
-      <th scope="col">Time</th>
-      <th scope="col">Phone</th>
-      <th scope="col">Cost</th>
-      <th scope="col">Description</th>
-      
+      <form action="" method="post">
+        <td label="Date"><input type="text" value="{{transactDate}}" class="form-control" name="transactDate"
+            readonly="true">
+        </td>
+        <td label="Name"><input type="text" value="{{fname}} {{lname}}" class="form-control" name="fname"
+            readonly="true">
+        </td>
+        <td label="Service Name"><input type="text" value="{{transactName}}" class="form-control" name="lname"
+            readonly="true">
+        </td>
+        <td label="Service Price"><input type="text" value="${{transactPrice}}" class="form-control"
+            name="transactPrice" readonly="true">
+        </td>
+        <td>
+          <nav>
+            <button class="navbar-toggler btn-dark" type="button" data-toggle="collapse"
+              data-target="#transDetails{{phoneNumber}}{{transactDate}}{{transactPrice}}"
+              aria-controls="transDetails{{phoneNumber}}{{transactDate}}{{transactPrice}}" aria-expanded="false">View
+              Details</button>
+          </nav>
+        </td>
+        <thead id="transDetails{{phoneNumber}}{{transactDate}}{{transactPrice}}" class="collapse">
+          <tr>
+            <th scope="col">Time</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Cost</th>
+            <th scope="col">Description</th>
+
+          </tr>
+        </thead>
     </tr>
-  </thead>
-    </tr>
-    <tr id="transDetails{{phoneNumber}}{{transactDate}}{{transactPrice}}"class="collapse">
-      <td label="Time"><input type="text" value="{{transactTime}} Hours" class="form-control"name="Time" readonly='true'></td>
-      <td label="Phone"><input type="text" value="{{phoneNumber}}" class="form-control"name="phone" readonly="true"></td>
-      <td label="Cost"><input type="text" value="${{transactCost}}" class="form-control"name="Cost" readonly="true"></td>
-      <td label="Description"><input value="{{descript}}" class="form-control"name="description" readonly="true"></textarea></td>
-      <td class="disp"id="delete{{phoneNumber}}{{transactDate}}{{transactPrice}}"><form action="../clients/{{phoneNumber}}{{transactDate}}{{transactPrice}}?_method=DELETE"method="post">
-        <form method="deleteTransact" method="post"><button class="btn btn-danger" name="id" type="submit"value="{{_id}}">Delete</button></form>
-      {{!-- </form></td>
-      <td class="hidden"id="enterEdit{{phoneNumber}}{{transactDate}}{{transactName}}">
-        <button type="submit"value="{{phoneNumber}}{{transactDate}}{{transactName}}">Submit</button>
-      </td></form> --}}
+    <tr id="transDetails{{phoneNumber}}{{transactDate}}{{transactPrice}}" class="collapse">
+      <td label="Time"><input type="text" value="{{transactTime}} Hours" class="form-control" name="Time"
+          readonly='true'></td>
+      <td label="Phone"><input type="text" value="{{phoneNumber}}" class="form-control" name="phone" readonly="true">
+      </td>
+      <td label="Cost"><input type="text" value="${{transactCost}}" class="form-control" name="Cost" readonly="true">
+      </td>
+      <td label="Description"><input value="{{descript}}" class="form-control" name="description"
+          readonly="true"></textarea></td>
+      <td class="disp" id="delete{{phoneNumber}}{{transactDate}}{{transactPrice}}">
+        <form action="../clients/{{phoneNumber}}{{transactDate}}{{transactPrice}}?_method=DELETE" method="post">
+          <form method="deleteTransact" method="post"><button class="btn btn-danger" name="id" type="submit"
+              value="{{_id}}">Delete</button></form>
+          {{!--
+        </form>
+      </td>
+      <td class="hidden" id="enterEdit{{phoneNumber}}{{transactDate}}{{transactName}}">
+        <button type="submit" value="{{phoneNumber}}{{transactDate}}{{transactName}}">Submit</button>
+      </td>
+      </form> --}}
     </tr>
   </tbody>
   {{else}}
   <h1>No Transactions in Database</h1>
+  <h3><a href='viewTransact'>Return to all transacts</a></h3>
   {{/each}}
 </table>
 <style>
-  .disp{  display: block;  }
-  .hidden{  display:none;  }
-/*Mobile View*/
-@media  only screen and  (max-width: 760px)  {
-  
-  td, tr :not(form) { display: block; }
-  
-  /* Hide table headers (but not display: none;, for accessibility) */
-  
-  thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
+  .disp {
+    display: block;
   }
-  tr { border: 1px solid rgb(119, 118, 175); }
-  tr + tr { margin-top: 1.5em; }
-  td {
-    /* make like a "row" */
-    border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 50%;
-    text-align: left;
+
+  .hidden {
+    display: none;
   }
-  td:before {
-    content: attr(label);
-    display: inline-block;
-    line-height: 1.5;
-    width: 100%;
-    white-space: nowrap;
+
   /*Mobile View*/
   @media only screen and (max-width: 760px) {
 
@@ -125,24 +129,65 @@
       line-height: 1.5;
       width: 100%;
       white-space: nowrap;
-    }
-    #sub{
-      display: block;
-      width: 100%;
-    }
-  }
+
+      /*Mobile View*/
+      @media only screen and (max-width: 760px) {
+
+        td,
+        tr :not(form) {
+          display: block;
+        }
+
+        /* Hide table headers (but not display: none;, for accessibility) */
+
+        thead tr {
+          position: absolute;
+          top: -9999px;
+          left: -9999px;
+        }
+
+        tr {
+          border: 1px solid rgb(119, 118, 175);
+        }
+
+        tr+tr {
+          margin-top: 1.5em;
+        }
+
+        td {
+          /* make like a "row" */
+          border: none;
+          border-bottom: 1px solid #eee;
+          position: relative;
+          padding-left: 50%;
+          text-align: left;
+        }
+
+        td:before {
+          content: attr(label);
+          display: inline-block;
+          line-height: 1.5;
+          width: 100%;
+          white-space: nowrap;
+        }
+
+        #sub {
+          display: block;
+          width: 100%;
+        }
+      }
 </style>
 <script>
-  function editFields(key){
-    if(document.getElementById("delete"+key).style.display=="block"){
-      document.getElementById("delete"+key).style.display="none";
-      document.getElementById("enterEdit"+key).style.display="block";
+  function editFields(key) {
+    if (document.getElementById("delete" + key).style.display == "block") {
+      document.getElementById("delete" + key).style.display = "none";
+      document.getElementById("enterEdit" + key).style.display = "block";
     }
-    
+
   }
   /*
 FOR KENNY REF
-  const app = 
+  const app =
   window.alert("Are you sure that you would \n like to delete item {{transactDate}} {{firstName}}");
   if(window.alert.cancel)
   {

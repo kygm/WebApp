@@ -135,6 +135,30 @@ if (show == 2) {
     }
   });
 
+  //WEBSITE ROUTES
+  app.get('/website/index', (req, res) => {
+    res.render("./website/index");
+  });
+  app.get('/website/kygm_services', (req, res) => {
+    res.render("./website/kygm_services");
+  });
+  app.get('/website/small_engines', (req,res) =>{
+    res.render("./website/small_engines");
+  });
+  app.get('/website/firefighting', (req,res) =>{
+    res.render("./website/firefighting");
+  });
+  app.get('/website/investing', (req,res) =>{
+    res.render("./website/investing");
+  });
+  app.get('/website/developing', (req,res) =>{
+    res.render("./website/developing");
+  });
+  app.get('/website/translating', (req,res) =>{
+    res.render("./website/translating");
+  });
+
+  //END WEBSITE ROUTES
   app.post('/clients/revenue', async (req, res) => {
     //currently inactive route. Will redirect to 
     //index page.
@@ -160,6 +184,8 @@ if (show == 2) {
 
     //res.render('./clients/revenue');
   });
+
+
   //about page GET
   app.get('/about', (req, res) => {
     res.render('about');
@@ -242,7 +268,6 @@ if (show == 2) {
       console.log(req.body);
       await Client.updateOne({ _id: req.body.id }
         , {
-
           fname: req.body.fname,
           lname: req.body.lname,
           state: req.body.state,
@@ -336,11 +361,11 @@ if (show == 2) {
               {
                 transactions: transactions,
               });
-              
+
             //console.log(transactions);
           });
       }
-      else if(req.body.id) {
+      else if (req.body.id) {
         console.log('deleting transact!');
         await Transaction.deleteOne({
           _id: req.body.id

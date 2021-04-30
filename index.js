@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const { removeAllListeners } = require('nodemon');
 const cookieParser = require('cookie-parser');
+const bcrypt = require('bcryptjs');
 //port declaration
 const PORT = process.env.PORT || 1500;
 
@@ -84,9 +85,43 @@ if (show == 2) {
 
   //ROUTES
 
+
   app.get('/clients/logout', (req, res) => {
     res.clearCookie("authorized");
     res.render('./clients/logout');
+
+  });
+
+  app.post('/createUser', async (req, res) => {
+    //create user operations go here
+
+    var saltRounds = 10;
+    //generate salt (16 char in this instance)
+    bcrypt.genSalt(saltRounds, function (err, salt) {
+      bcrypt.hash(req.body.password, salt, async function (err, hash) {
+
+        const newUser = {
+          username: req.body.username,
+          email: req.body.email,
+          password: hash
+        }
+        var usr = await User.findOne({ username: newUser.username });
+        //if user with specified username does not exist, create user and return
+        //user obj
+        if (!usr) {
+          await new User(newUser)
+            .save().then(userObj => {
+              console.log(userObj);
+              return (res.status(200).json("user created"));
+
+            });
+        }
+        else {
+          return (res.status(200).json("user exists"));
+        }
+      });
+
+    });
 
   });
 
@@ -98,25 +133,30 @@ if (show == 2) {
 
   //login page post route (auth user)
   app.post('/clients/login', async (req, res) => {
-    User.findOne({
-      username: req.body.username,
-      password: req.body.password
-    }).lean()
-      .then(user => {
-        if (user) {
-          console.log("user found");
-          res.cookie("authorized", true, {
-            maxAge: 3600000, //setting cookie timeout at 1hr
-            httpOnly: true
-          });
-          res.redirect('/');
 
-        }
-        else {
-          console.log("no user found");
-          res.redirect('login');
-        }
-      })
+    var result;
+    var user = await User.findOne({
+      username: req.body.username,
+    });
+    if (user) {
+      flag = await bcrypt.compare(req.body.password, user.password);
+
+      flag ? result = "Yes" : result = "No";
+      if (flag) {
+        //setting cookies
+        res.cookie("authorized", true, {
+          maxAge: 3600000, //setting cookie timeout at 1hr
+          httpOnly: true
+        });
+        res.redirect('/');
+      }
+      else {
+        console.log("no user found");
+        
+        res.redirect('login');
+      }
+    }
+
   });
   //index page
   app.get('/', (req, res) => {

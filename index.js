@@ -92,36 +92,66 @@ if (show == 2) {
 
   });
 
+  /*
+  This function takes in a username and password
+  to create user, and an admin password. The paramaters are:
+
+  {
+    username: "createdUsername",
+    password: "createdUserPwd",
+    adminPasswrod: "adminPassword"
+  }
+  */
   app.post('/createUser', async (req, res) => {
     //create user operations go here
 
     var saltRounds = 10;
-    //generate salt (16 char in this instance)
-    bcrypt.genSalt(saltRounds, function (err, salt) {
-      bcrypt.hash(req.body.password, salt, async function (err, hash) {
+    //generate salt (10 char in this instance)
 
-        const newUser = {
-          username: req.body.username,
-          email: req.body.email,
-          password: hash
-        }
-        var usr = await User.findOne({ username: newUser.username });
-        //if user with specified username does not exist, create user and return
-        //user obj
-        if (!usr) {
-          await new User(newUser)
-            .save().then(userObj => {
-              console.log(userObj);
-              return (res.status(200).json("user created"));
-
-            });
-        }
-        else {
-          return (res.status(200).json("user exists"));
-        }
-      });
-
+    var user = await User.findOne({
+      username: "admin",
     });
+    if (user) {
+      flag = await bcrypt.compare(req.body.adminPassword, user.password);
+
+      flag ? result = "Yes" : result = "No";
+      if (flag) {
+        bcrypt.genSalt(saltRounds, function (err, salt) {
+          bcrypt.hash(req.body.password, salt, async function (err, hash) {
+
+            const newUser = {
+              username: req.body.username,
+              email: req.body.email,
+              password: hash
+            }
+            var usr = await User.findOne({ username: newUser.username });
+            //if user with specified username does not exist, create user and return
+            //user obj
+            if (!usr) {
+              await new User(newUser)
+                .save().then(userObj => {
+                  console.log(userObj);
+                  return (res.status(200).json("user created"));
+
+                });
+            }
+            else {
+              return (res.status(200).json("user exists"));
+            }
+          });
+
+        });
+
+      }
+      else {
+        console.log("Incorrect Password!");
+        res.status(500).json("Incorrect Admin Password!")
+        res.redirect('/');
+      }
+    }
+
+
+
 
   });
 
@@ -152,7 +182,7 @@ if (show == 2) {
       }
       else {
         console.log("no user found");
-        
+
         res.redirect('login');
       }
     }

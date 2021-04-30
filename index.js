@@ -131,7 +131,7 @@ if (show == 2) {
         });
     }
     else {
-      res.redirect('./clients/login');
+      res.redirect('./website/index');
     }
   });
 
@@ -142,19 +142,19 @@ if (show == 2) {
   app.get('/website/kygm_services', (req, res) => {
     res.render("./website/kygm_services");
   });
-  app.get('/website/small_engines', (req,res) =>{
+  app.get('/website/small_engines', (req, res) => {
     res.render("./website/small_engines");
   });
-  app.get('/website/firefighting', (req,res) =>{
+  app.get('/website/firefighting', (req, res) => {
     res.render("./website/firefighting");
   });
-  app.get('/website/investing', (req,res) =>{
+  app.get('/website/investing', (req, res) => {
     res.render("./website/investing");
   });
-  app.get('/website/developing', (req,res) =>{
+  app.get('/website/developing', (req, res) => {
     res.render("./website/developing");
   });
-  app.get('/website/translating', (req,res) =>{
+  app.get('/website/translating', (req, res) => {
     res.render("./website/translating");
   });
 

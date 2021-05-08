@@ -402,7 +402,7 @@ if (show == 2) {
 
 
       await Transaction.find({}).lean()
-        .sort({ date: 'desc' })
+        .sort({ "dateEntered": -1 })
         .then(transactions => {
           res.render('./clients/viewTransact',
             {
